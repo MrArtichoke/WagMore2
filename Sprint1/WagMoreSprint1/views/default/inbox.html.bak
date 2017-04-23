@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+
+<h2>Your Inbox</h2>
+<ul>
+{{for pmessage in pmessages:}}
+<li>{{=A(pmessage.subject, _href=URL(r=request, f='read', args=pmessage.id))}}</li>
+{{pass}}
+</ul>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<style>
+	body{
+        background-color: #edf7fb;
+    }
+    .error_wrapper{
+        position: absolute;
+        color:red;
+    }
+    .column{
+        float:left; 
+        width: 50%;
+    }
+    .question{
+        margin:20px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    #title{
+        float:left;
+    }
+    center{
+        clear:both;
+    }
+    #header{
+        display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+</style>
+<head>
+    <title>Questions</title>
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+</head>
+<body>
+    <div id="header">
+        <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+        <div id="title">
+            <h1>Create your profile</h1>
+
+        </div>
+    </div>
+    <center >
+        <img style="margin-top: -67px" alt="Error" src="{{=URL('static', 'images/interests.png')}}", height="150px">
+    </center>
+    {{if(request.args(0)=="Remake"):}}
+        <center >
+            <h2 style="color:red;">Uops, apparently you forgot to fill this part of your profile</h2>
+        </center>
+    {{pass}}
+
+<center><h2 style="margin:0px; text-decoration: underline">Questions 3/4 </h2></center>
+            {{=form.custom.begin}}
+        <div class="column">
+           	<div class="question">    
+            <b>A spontaneous road trip (with my pup!) sounds fun:</b> <div>{{=form.custom.widget.q11}}</div>
+            </div>
+            <div class="question">
+
+            <b>I am the life of the party:</b> <div>{{=form.custom.widget.q12}}</div>
+            </div>
+            <div class="question">
+            <b>I am not shy meeting new people:</b> <div>{{=form.custom.widget.q13}}</div>
+            </div>
+        </div>    
+        <div class="column">
+            <div class="question">
+
+            <b>I do not drink or do drugs: </b><div>{{=form.custom.widget.q14}}</div>
+            </div>
+            <div class="question">
+            <b>I prefer to create a piece of art rather than to analyze a piece of art:</b> <div>{{=form.custom.widget.q15}}</div>
+            </div>
+        </div>  
+		<input type="image" alt="Error" src="{{=URL('static','images/nextButton.png')}}", height="150px">
+        {{=form.custom.end}}
+</body>
+</html>

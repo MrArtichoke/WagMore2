@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Create profile</title>
+  <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+  {{response.files.append(URL('static','css/create_profile.css'))}}
+  {{include 'web2py_ajax.html'}}
+
+</head>
+<style>
+    @media screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
+        
+     body{ zoom: 149% !important;
+    }
+           #logo{
+		position: absolute;
+	    left: 10px;
+	    top: 10px;
+        width:150px !important;
+        height: 100px !important;
+	}
+    }
+    @media screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : portrait){
+    body{ zoom: 149% !important;
+    }
+        #logo{
+		position: absolute;
+	    left: 10px;
+	    top: 10px;
+        width:150px !important;
+        height: 100px !important;
+	}
+    }
+    @media screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) 
+    { 
+        body{
+		background-color: #edf7fb !important;
+            zoom: 120% !important;
+	}
+    }
+	body{
+		background-color: #edf7fb;
+	}
+	.error_wrapper{
+		color:red;
+	}
+	#infoPerson{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 350px;
+		height: auto;
+		margin-left: 100px;
+		margin-right: 5px;
+		float:left;
+	}
+	#infoDog{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 350px;
+		height: auto;
+		margin-right: 100px;
+		margin-left: 5px;
+		float:left;
+
+	}
+	#info{
+		display: flex;
+  		justify-content: center;
+  		clear:both;
+
+	}
+	.line{
+		clear:both;
+		float: left;
+		padding: 5px;
+	}
+	.form-group{
+		float:left;
+		padding-right: 5px;
+	}
+	.text{
+		float:left;
+		padding-right: 5px;
+	}
+	#logo{
+		position: absolute;
+	    left: 10px;
+	    top: 10px;
+        width: 200px;
+        height: 152px;
+	}
+	#title{
+		float:left;
+	}
+	center{
+		clear:both;
+	}
+	#header{
+		display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+	}
+	.picture{
+		float:left;
+	}
+	#pic{
+  		width: 480px;
+  		height: auto;
+  		overflow: hidden;
+  		margin: 0 auto;
+	}
+	#paw{
+        position: absolute;
+        margin-left: 30px;
+        margin-top: 50px;
+        opacity:0.5;
+        transform: scaleX(-1);
+        z-index: -1;
+    }
+    #paw2{
+        position: absolute;
+        right: 30px;
+        margin-top: 150px;
+        opacity:0.5;
+        z-index: -1;
+    }
+
+</style>
+
+<body>
+
+	<div id="header">
+		
+	    <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}"  alt="Woof!">
+	    
+	    <div id="title">
+			<h1>Create your profile</h1>
+
+		</div>
+	</div>
+	<center >
+		<img style="margin-top: -67px" alt="Error" src="{{=URL('static', 'images/uploadPictures.png')}}",
+		height="150px">
+	</center>
+	<img id="paw" src="{{=URL('static', 'images/appLogo.png')}}" width="200" height="152" alt="Woof!">
+
+	<img id="paw2" src="{{=URL('static', 'images/appLogo.png')}}" width="200" height="152" alt="Woof!">
+    <div id="pic">
+      {{=form.custom.begin}}
+      <div class="picture">
+	      <h3> User profile picture:</h3>
+	      <img id="user" src="{{=URL('static', 'images/person.png')}}" width="120" height="120" alt="Woof!" style="margin-left: 20px">
+	      <div>{{=form.custom.widget.profilePic}}</div>
+      </div>
+      <div class="picture">
+      	<h3> Dog profile picture:</h3>
+      	<img id="user" src="{{=URL('static', 'images/dog.png')}}" width="120" height="120" alt="Woof!" style="margin-left: 20px">
+      	<div> {{=form.custom.widget.profilePicDog}}</div>
+      </div>
+    </div>
+    <center><h3>Add more pictures to complete your profile </h3>
+    <p>{{=form.custom.widget.picture1}}</p>
+    <p>{{=form.custom.widget.picture2}}</p>
+    <p>{{=form.custom.widget.picture3}}</p>
+    <center><h3>Add a video to complete your profile </h3>
+    <p>{{=form.custom.widget.videos}}</p>
+    </center>
+
+
+
+	<div id="info">
+		<input type="image" alt="Error" src="{{=URL('static', 'images/nextButton.png')}}", height="150px">
+        {{=form.custom.end}}
+	</div>
+	
+
+
+
+ </body>
+</html>

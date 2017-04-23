@@ -1,0 +1,41 @@
+<style>
+        body{
+        background-color: #edf7fb;
+    }
+    #title{
+        float:left;
+    }
+    #header{
+        display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+</style>
+
+<div id="header">
+            <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+            <div id="title">
+                <h1>Edit you and your doggo's pictures</h1>
+            </div>
+</div>
+
+
+
+            <div>Your current bio: {{=profile.bio}}</div>
+            <div>{{=profile.dogName}}'s current bio: {{=profile.dogBio}}</div>
+
+{{=form.custom.begin}}
+            <b>Your new bio:</b> <div>{{=form.custom.widget.bio}}</div>
+            <b>{{=profile.dogName}}'s new bio:</b> <div>{{=form.custom.widget.dogBio}}</div>
+
+	<div id="info">
+		<input type="image" alt="Error" src="{{=URL('static', 'images/nextButton.png')}}", height="150px">
+        {{=form.custom.end}}
+	</div>

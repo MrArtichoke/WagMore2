@@ -1,0 +1,218 @@
+<style>
+    body{
+        background-color: #edf7fb;
+    }
+    a{
+        text-decoration: none;
+        color:#464e5e;
+        cursor: pointer;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+    .navbar, .footer{
+        visibility: hidden;
+    }
+    .profile {
+        float:left;
+        margin:20px 35px;
+        width: 300px;
+    }
+    .profPerson{
+        position:relative;
+        float:left;
+        width: 105px;
+        height: 143px;
+        margin-left: -274px;
+        margin-top: 25px;
+        overflow: hidden;
+    }
+    .profPerson img{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .profDog{
+        position:relative;
+        float:left;
+        margin-left: 167px;
+        margin-top: -165px;
+        width: 105px;
+        height: 143px;
+        overflow: hidden;
+    }
+    .paws{
+        position:relative;
+        float:left;
+        margin-left: 187px;
+        margin-top: -236px;
+        width: 105px;
+        height: 43px;
+        transform: rotate(13deg);
+    }
+    .profDog img{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .name{
+        margin-bottom: 10px;
+        border: 1px solid grey;
+        background-color: white;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    #header{
+        display: flex;
+        justify-content: center;
+        height:140px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 20px;
+    }
+    #title{
+        float:left;
+        margin-top: 20px;
+    }
+    #frame{
+        box-shadow: 10px 10px 5px grey;
+        background-color: #464e5e;
+    }
+    #logOut{
+        position:absolute;
+        right: 30px;
+        cursor: pointer;
+        transform: rotate(30deg);
+        margin-top: -15px;
+
+    }
+    button{
+        position:absolute;
+        padding: 5px 15px;
+        color: white;
+        background-color:  #0275d8;
+        font-size: 14px;
+        margin-top:25px;
+        cursor: pointer;
+
+    }
+
+    .paws .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    margin-left: -10px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    }
+    .paws:hover .tooltiptext {
+        visibility: visible;
+    }
+
+
+</style>
+<div id="header">
+        <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+        <div id="title">
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List of people you matched with
+            </h1>
+        </div>
+        <div style="float:right">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img id="logOut" src="{{=URL('static', 'images/buttonLogout.png')}}" width="150" height="152" alt="Log out" onclick="location.href='{{=URL('default', 'user', args=['logout'])}}'">
+        </div>
+        <div style="float:right">
+            <img id="myProfile" src="{{=URL('static', 'images/buttonMyprofile.png')}}" width="150" height="152" alt="My profile" onclick="location.href='{{=URL('default', 'show', args=[auth.user.id,-1])}}'">
+
+        {{if not showBlocked:}}
+            <button style="right: 50px" type="button" onclick="location.href='{{=URL('default', 'profiles', args="blocked")}}'">Show blocked people</button>
+        {{else:}}
+            <button style="right: 50px" type="button"  onclick="location.href='{{=URL('default', 'profiles')}}'">Show matches</button>
+        {{pass}}
+        </div>
+        <div>
+            <button style="right: 50px; top:220px" type="button" onclick="location.href='{{=URL('default', 'profiles', args="ReloadMatches")}}'">Check for more matches</button>
+        </div>
+<center><div class="flash" style="color:red;">{{=response.flash or ''}}</div></center>
+</div>
+    {{if numberOfMatches==0:}}
+        <h2 align="center">Sorry {{=auth.user.first_name}}, you have no matches! Nobody wants you!</h2>
+    {{else:}}
+        <h2 align="center">Congratulations, {{=auth.user.first_name}}! You have matches!<br>Showing {{=(numberOfMatches-numberOfBlocked)}} match(es).</h2>
+        {{if numberOfBlocked==1:}}
+            <h2 align="center">You have blocked 1 person</h2>
+        {{else:}}
+            <h2 align="center">You have blocked {{=numberOfBlocked}} people</h2>
+        {{pass}}
+    {{pass}}
+    {{for match in matches:}}
+        {{if match.blocked==showBlocked:}}
+          {{i=0}}
+            {{messagesToOpen=db((db.post.item_id==match.id) & (db.post.fromid!=auth.user.id) & (db.post.opened==False)).count()
+            if (messagesToOpen>0):}}
+                <h2>YOU HAVE {{=messagesToOpen}} NEW MESSAGES</h2>
+            {{pass}}
+            {{profile=db(db.profile.id==match.idToMatch).select()[0]}}
+            <div class="profile">
+            <div class="name"><b>{{=A(profile.name, _href=URL("show", args=[profile.id, match.id]))}}</b> AND
+            <b>{{=A(profile.dogName, _href=URL("show", args=[profile.id, match.id]))}}</b></div>
+            <img id="frame" width="300px" height="250px" style="float:left" src="{{=URL('static', 'images/marco.png')}}"/>
+                <div class="profPerson" >
+                    {{picture =db(db.images.id==profile.id).select().first()}}
+                    {{if (picture == None) or (len(picture.profilePic) == 0):}}
+                    <img width="100%", height="100%"  src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+
+                    {{else:}}
+
+                    <img width="105px"
+                         src="{{=URL('download', args=picture.profilePic)}}"
+                         onClick='window.location="{{=URL('show', args=[profile.id, match.id])}}";'/>
+                    {{pass}}
+
+                </div>
+                <div class="profDog">
+
+                    {{if (picture == None) or (len(picture.profilePicDog) == 0):}}
+                        <img width="105px", height="100%" src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+                    {{else:}}
+                        <img width="105px"
+                        src="{{=URL('download', args=picture.profilePicDog)}}"/>
+                    {{pass}}
+                </div>
+                {{if match.percentage>89:
+                    img = "images/4paws_2.png"
+                    comp = str(match.percentage) + "% compatibility"
+                  elif match.percentage>74:
+                    img = "images/3paws_2.png"
+                    comp = str(match.percentage) + "% compatibility"
+                  elif match.percentage>59:
+                    img = "images/2paws_2.png"
+                    comp = str(match.percentage) + "% compatibility"
+                  else:
+                    img = "images/1paws_2.png"
+                    comp = str(match.percentage) + "% compatibility"
+                  pass          
+                    }}
+                <div class="paws">
+                    <img width="105px" src="{{=URL('static', img)}}">
+                    <span class="tooltiptext">{{=comp}}</span>
+
+                </div>
+                {{if (match.distance < 2):}}
+                    <h3>You are less than 2 miles away!!</h3>
+                {{else:}}
+                    <h3>You are {{=match.distance}} miles away</h3>
+                {{pass}}
+            </div>
+        {{i=i+1}}
+      {{pass}}
+    {{pass}}

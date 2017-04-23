@@ -1,0 +1,65 @@
+<style>
+    #title{
+        float:left;
+    }
+    #header{
+        display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+</style>
+
+<head>
+    <title>More Pictures</title>
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+</head>
+
+<div id="header">
+            <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+            <div id="title">
+                <h1>Edit your other pictures</h1>
+            </div>
+</div>
+
+<center>
+{{=form.custom.begin}}
+{{if (images.picture1 == None) or (len(images.picture1) == 0):}}
+                    <img width="100"  src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+
+                    {{else:}}
+
+                    <img width="100" src="{{=URL('download', args=images.picture1)}}"/>
+                    {{pass}}
+
+{{=form.custom.widget.picture1}}
+{{if (images.picture2 == None) or (len(images.picture2) == 0):}}
+                    <img width="100" src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+
+                    {{else:}}
+
+                    <img width="100" src="{{=URL('download', args=images.picture2)}}"/>
+                    {{pass}}
+                    {{=form.custom.widget.picture2}}
+{{if (images.picture3 == None) or (len(images.picture3) == 0):}}
+                    <img width="100" src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+
+                    {{else:}}
+
+                    <img width="100"  src="{{=URL('download', args=images.picture3)}}"/>
+                    {{pass}}
+{{=form.custom.widget.picture3}}
+
+<div id="info">
+    <input type="image" alt="Error" src="{{=URL('static', 'images/backButton.png')}}", height="150px">
+        {{=form.custom.end}}
+    <input type="image" alt="Error" src="{{=URL('static', 'images/nextButton.png')}}", height="150px">
+
+	</div>
+</center>

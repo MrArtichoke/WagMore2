@@ -1,0 +1,14 @@
+<html>
+
+<head>
+    <title>Edit a post</title>
+</head>
+    <body style="background-color:powderblue;">
+
+    <div class="flash"><b>{{=response.flash or ''}}</b></div>
+
+{{=form}}
+
+<a href="{{=URL('default', 'index')}}"></a>
+    </body>
+</html>

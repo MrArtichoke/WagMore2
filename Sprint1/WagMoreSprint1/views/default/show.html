@@ -1,0 +1,907 @@
+<head>
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+    <script src="{{=URL('static','js/jquery.js')}}"></script>
+</head>
+<style>
+    body{
+        background-color: #edf7fb;
+         font-family:  "Trebuchet MS", Helvetica, sans-serif;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 20px;
+    }
+    #title{
+        float:left;
+        margin-top: 20px;
+    }
+
+    #header{
+        display: flex;
+        justify-content: center;
+        height:140px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+    }
+    #firstLine{
+        width: 100%;
+        height: auto;
+        overflow: auto;
+
+    }
+    #firstLine img{
+        cursor: pointer;
+    }
+    #back {
+        position:absolute;
+        margin-left: 40px;
+    } 
+    #borderig {
+        border: 5px solid red;
+    }  
+    #block {
+        position: absolute;
+        right: 30px;
+        top:160px;
+    } 
+    #infoAndPics{
+        width: 100%;
+        height: auto;
+        overflow: auto;
+    }
+    #infoPerson{
+        float:left;
+        width: 30%;
+        text-align: center;
+    }
+    #pics{
+        width: 40%;
+        float: left;
+        text-align: center;
+    }
+    #pics img{
+        position: relative;
+        top: 50%;
+
+    }
+
+    #infoDog{
+        float:left;
+        width: 30%;
+        text-align: center;
+    }
+    #personalities{
+        margin: 50px 20px;
+    }
+    #interest{
+        margin-bottom: 50px;
+    }
+    #logOut{
+        position:absolute;
+        right: 30px;
+        cursor: pointer;
+        transform: rotate(30deg);
+        margin-top: -15px;
+    }
+    button{
+        padding: 5px 15px;
+        color: white;
+        background-color:  #0275d8;
+        font-size: 14px;
+        cursor: pointer;
+        margin: 10px;
+
+    }
+    #slides{
+        width: 500px;
+        margin: auto;
+        height: 400px;
+        overflow: hidden;
+    }
+
+    #comments{
+        width: 70%;
+        margin: auto;
+        height: 200px;
+        overflow: scroll;
+        bottom:0px;
+        border: 2px solid grey;
+        background-color: #c1d9dc;
+    }
+    
+    .com p{
+       display: inline-block; 
+    }
+    #post_author__row{
+        visibility: hidden;
+    }
+    .btn{
+        padding: 5px 15px;
+        color: white;
+        background-color:  #0275d8;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top:5px;
+    }
+    .btn2{
+        cursor: pointer;
+    }
+    .emoji{
+        padding: 5px 15px;
+        color: white;
+        background-color:  #0275d8;
+        font-size: 14px;
+        margin-top:5px;
+    }
+    #myProfile{
+        position: absolute;
+        right: 180px;
+        margin-top: -15px;
+        cursor: pointer;
+    }
+    #blockedMatches{
+        position: absolute;
+        margin-top: 100px;
+        right: 180px;
+        cursor: pointer;
+    }
+    #block{
+        position:absolute;
+        right: 25px;
+        cursor: pointer;
+        margin-top: -20px;
+        cursor: pointer;
+    }
+</style>
+<head>
+    <title>Profile</title>
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+</head>
+<body>
+
+    <div id="header">
+        <a href="{{=URL('index')}}">
+            <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="150" alt="Woof!">
+        </a>
+        <div id="title">
+            <h1>Viewing {{=profile.name}} and {{=profile.dogName}}'s profiles!</h1>
+        </div>
+        <img id="logOut" src="{{=URL('static', 'images/buttonLogout.png')}}" width="150" height="152" alt="Log out" onclick="location.href='{{=URL('default', 'user', args=['logout'])}}'">
+        {{if profile.id != auth.user.id:}}
+            <div style="float:right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img id="myProfile" src="{{=URL('static', 'images/buttonMyprofile.png')}}" width="150" height="152" alt="My profile" onclick="location.href='{{=URL('default', 'show', args=[auth.user.id,-1])}}'">
+<br><br><br><br>
+        {{pass}}
+
+        </div>
+    </div>
+    <div id="firstLine">
+        <div id = "back">
+            <img src="{{=URL('static','images/backButton.png')}}") width="120" height="120" onClick='window.location="{{=URL('profiles')}}";'>    
+        </div>
+
+        <center>
+
+            <h1>{{=profile.name}} AND {{=profile.dogName}}</h1>
+            {{if (request.args(1,cast=int)!=-1 and (auth.user.id==match.idFromMatch or auth.user.id==match.idToMatch)):}}
+                <button type="button" onclick="location.href='#messages'">Go to your Messages</button>
+            {{pass}}    
+
+        </center>
+        <!--THIS SHOULD BE A BUTTON: UPDATED!-->
+        {{if profile.id != auth.user.id:}}  
+            <img id="block" src="{{=URL('static','images/buttonBlockunblock.png')}}") width="170" height="170" onClick='window.location="{{=URL('blockPerson',args=profile.id)}}";'>
+        {{pass}}   
+    </div>
+    <div id="infoAndPics">
+        <div id="infoPerson">
+            <h3>{{=profile.name}}</h2>
+            <div>Gender: {{=profile.gender}}</div>
+            <br>
+            <div>BirthDate: {{=profile.birthDate}}</div>
+            <br>
+            <div>{{=profile.name}}'s bio: {{=profile.bio}}</div>
+        
+        </div>
+        <div id="pics">
+            <img width="200px" src="{{=URL('download', args=images.profilePic)}}" >
+            <img width="200px" src="{{=URL('download', args=images.profilePicDog)}}" >
+            {{if profile.id == auth.user.id:}} 
+
+                <a href="{{=URL('default', 'changeDog', args=[profile.id])}}"><button>Change Profile Pictures</button></a>
+                <a href="{{=URL('default', 'changeBio', args=[profile.id])}}"><button>Change Bios</button></a>
+            {{pass}}
+        </div>
+        <div id="infoDog">
+            <h3>{{=profile.dogName}}</h2>
+            <div>Gender: {{=profile.dogGender}}</div>
+            <br>
+            <div>Age: {{=profile.dogAge}}</div>
+            <div>{{=profile.dogName}}'s bio: {{=profile.dogBio}}</div>
+        </div>        
+    </div>         
+   
+    <div id="personalities">
+    <center>
+        <img src="{{=URL('static','images/p_adventurous.png')}}")>
+        {{if profile.adventurous > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.adventurous > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <img src="{{=URL('static','images/p_bubbly.png')}}")>
+        {{if profile.bubbly > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.bubbly > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <img src="{{=URL('static','images/p_confident.png')}}")>
+        {{if profile.confident > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.confident > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <br>
+        
+        <img src="{{=URL('static','images/p_conservative.png')}}")>
+        {{if profile.conservative > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.conservative > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <img src="{{=URL('static','images/p_creative.png')}}")>
+        {{if profile.creative > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.creative > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <img src="{{=URL('static','images/p_fiery.png')}}")>
+        {{if profile.fiery > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.fiery > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <br>
+        
+        <img src="{{=URL('static','images/p_goofy.png')}}")>
+        {{if profile.goofy > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.goofy > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <img src="{{=URL('static','images/p_intellectual.png')}}")>
+        {{if profile.intellectual > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.intellectual > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <img src="{{=URL('static','images/p_introverted.png')}}")>
+        {{if profile.introverted > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.introverted > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <br>
+        
+        <img src="{{=URL('static','images/p_openness.png')}}")>
+        {{if profile.openness > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.openness > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}
+        
+        <img src="{{=URL('static','images/p_spontaneous.png')}}")>
+        {{if profile.spontaneity > 8:}}
+            <img src="{{=URL('static','images/p_3paws.png')}}")>
+        {{elif profile.spontaneity > 4:}}
+            <img src="{{=URL('static','images/p_2paws.png')}}")>
+        {{else:}}
+            <img src="{{=URL('static','images/p_1paw.png')}}")>
+        {{pass}}</center>
+    </div> 
+    <div id="interests">  
+        <center> 
+        {{if (profile.id != auth.user.id):}}
+            {{exvideo =db(db.interestFood.id==profile.id).select().first()}}
+            {{exvideo5 =db(db.interestFood.id== auth.user.id).select().first()}}
+
+            {{if (exvideo.Tacos == True) and( exvideo5.Tacos == True) :}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/taco.png')}}">
+             {{elif (exvideo.Tacos == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/taco.png')}}">
+
+            {{pass}}
+            {{if ( exvideo5.Pizza == True) and(exvideo.Pizza == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/pizza.png')}}">
+             {{elif (exvideo.Pizza == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/pizza.png')}}">
+            {{pass}}
+
+            {{if (exvideo.Salad == True) and( exvideo5.Salad == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/fruitveggies.png')}}">
+            {{elif (exvideo.Salad == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/fruitveggies.png')}}">
+            {{pass}}
+            {{if (exvideo.Cheeseburger == True) and( exvideo5.Cheeseburger == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/burger.png')}}">
+            {{elif (exvideo.Cheeseburger == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/burger.png')}}">
+            {{pass}}
+            {{if (exvideo.Sushi == True) and( exvideo5.Sushi == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/sushi.png')}}">
+             {{elif (exvideo.Sushi == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/Sushi.png')}}">
+            {{pass}}
+            {{if  (exvideo.Breakfast == True) and( exvideo5.Breakfast == True) :}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/breakfast.png')}}">
+             {{elif (exvideo.Breakfast == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/breakfast.png')}}">
+            {{pass}}
+
+            {{exvideo1 =db(db.interestSports.id==profile.id).select().first()}}
+            {{exvideo6 =db(db.interestSports.id== auth.user.id).select().first()}}
+
+            {{if (exvideo1.Soccer == True) and( exvideo6.Soccer == True):}}
+                <img  id="borderig" height="100" width="100" src="{{=URL('static','images/soccer.png')}}">
+             {{elif (exvideo1.Soccer == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/soccer.png')}}">
+            {{pass}}
+                {{if (exvideo1.Basketball == True) and( exvideo6.Basketball == True):}}
+                <img  id="borderig" height="100" width="100" src="{{=URL('static','images/basketball.png')}}">
+             {{elif (exvideo1.Basketball == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/basketball.png')}}">
+            {{pass}}
+            {{if (exvideo1.Football == True) and( exvideo6.Football == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/football.png')}}">
+             {{elif (exvideo1.Football == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/football.png')}}">
+            {{pass}}
+            {{if (exvideo1.RunningJogging == True) and( exvideo6.RunningJogging == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/runningjogging.png')}}">
+             {{elif (exvideo1.RunningJogging == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/runningjogging.png')}}">
+            {{pass}}
+            {{if (exvideo1.Tennis == True) and( exvideo6.Tennis == True):}}
+                <img  id="borderig" height="100" width="100" src="{{=URL('static','images/tennis.png')}}">
+             {{elif (exvideo1.Tennis == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/tennis.png')}}">
+            {{pass}}
+            {{if (exvideo1.Chess == True) and( exvideo6.Chess == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/chess.png')}}">
+             {{elif (exvideo1.Chess == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/chess.png')}}">
+            {{pass}}
+
+            {{exvideo2 =db(db.interestActivities.id==profile.id).select().first()}}
+            {{exvideo7 =db(db.interestActivities.id== auth.user.id).select().first()}}
+
+            {{if (exvideo2.Hicking == True) and( exvideo7.Hicking == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/hiking.png')}}">
+            {{elif (exvideo2.Hicking == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/hiking.png')}}">
+            {{pass}}
+            {{if (exvideo2.Partying == True) and( exvideo7.Partying == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/wine.png')}}">
+            {{elif (exvideo2.Partying == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/wine.png')}}">
+            {{pass}}
+            {{if (exvideo2.Working_Out == True) and( exvideo7.Working_Out == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/workout.png')}}">
+            {{elif (exvideo2.Working_Out == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/workout.png')}}">
+            {{pass}}
+            {{if (exvideo2.Travel == True) and( exvideo7.Travel == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/travel.png')}}">
+            {{elif (exvideo2.Travel == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/travel.png')}}">
+            {{pass}}
+            {{if (exvideo2.Reading == True) and( exvideo7.Reading == True):}}
+                <img id="borderig"  height="100" width="100" src="{{=URL('static','images/reading.png')}}">
+            {{elif (exvideo2.Reading == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/reading.png')}}">
+            {{pass}}
+            {{if (exvideo2.Skydiving == True) and( exvideo7.Skydiving == True):}}
+                <img id="borderig" height="100" width="100" src="{{=URL('static','images/skydiving.png')}}">
+            {{elif (exvideo2.Skydiving == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/skydiving.png')}}">
+            {{pass}}
+
+            {{exvideo3 =db(db.interestHobbies.id==profile.id).select().first()}}
+            {{exvideo8 =db(db.interestHobbies.id== auth.user.id).select().first()}}
+
+            {{if (exvideo3.Games == True) and( exvideo8.Games == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/games.png')}}">
+            {{elif (exvideo3.Games == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/games.png')}}">
+            {{pass}}
+            {{if (exvideo3.Sciences == True) and( exvideo8.Sciences == True):}}
+                <img  id="borderig" height="100" width="100"  src="{{=URL('static','images/science.png')}}">
+            {{elif (exvideo3.Sciences == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/science.png')}}">
+            {{pass}}
+            {{if (exvideo3.Art == True) and( exvideo8.Art == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/art.png')}}">
+            {{elif (exvideo3.Art == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/art.png')}}">
+            {{pass}}
+            {{if (exvideo3.Movies == True) and( exvideo8.Movies == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/photography.png')}}">
+            {{elif (exvideo3.Movies == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/photography.png')}}">
+            {{pass}}
+            {{if (exvideo3.Cooking == True) and( exvideo8.Cooking == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/cooking.png')}}">
+            {{elif (exvideo3.Cooking == True):}}
+                    <img height="100" width="100"  src="{{=URL('static','images/cooking.png')}}">
+            {{pass}}
+            {{if (exvideo3.Guitar == True) and( exvideo8.Guitar == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/guitar.png')}}">
+            {{elif (exvideo3.Guitar == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/guitar.png')}}">
+            {{pass}}
+
+            {{exvideo4 =db(db.interestPlaces.id==profile.id).select().first()}}
+            {{exvideo9 =db(db.interestPlaces.id== auth.user.id).select().first()}}
+
+            {{if (exvideo4.Beach == True) and( exvideo9.Beach == True):}}
+                <img id="borderig"  height="100" width="100"  src="{{=URL('static','images/beach.png')}}">
+            {{elif (exvideo4.Beach == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/beach.png')}}">
+            {{pass}}
+            {{if (exvideo4.Woods == True) and( exvideo9.Woods == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/camping.png')}}">
+            {{elif (exvideo4.Woods == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/camping.png')}}">
+            {{pass}}
+            {{if (exvideo4.Concert == True) and( exvideo9.Concert == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/concert.png')}}">
+            {{elif (exvideo4.Concert == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/concert.png')}}">
+            {{pass}}
+            {{if (exvideo4.Library == True) and( exvideo9.Library == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/library.png')}}">
+            {{elif (exvideo4.Library == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/library.png')}}">
+            {{pass}}
+            {{if (exvideo4.WorldMap == True) and( exvideo9.WorldMap == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/worldmap.png')}}">
+            {{elif (exvideo4.WorldMap == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/worldmap.png')}}">
+            {{pass}}
+            {{if (exvideo4.HomeWithDog == True) and( exvideo9.HomeWithDog == True):}}
+                <img id="borderig" height="100" width="100"  src="{{=URL('static','images/home.png')}}">
+            {{elif (exvideo4.HomeWithDog == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/home.png')}}">
+            {{pass}}
+
+        <br>
+        <br>
+
+        {{else:}}
+            {{exvideo10 =db(db.interestFood.id==profile.id).select().first()}}
+            {{if (exvideo10.Tacos == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/taco.png')}}">
+            {{pass}}
+            {{if (exvideo10.Pizza == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/pizza.png')}}">
+            {{pass}}
+            {{if (exvideo10.Salad == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/fruitveggies.png')}}">
+            {{pass}}
+            {{if (exvideo10.Cheeseburger == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/burger.png')}}">
+            {{pass}}
+            {{if (exvideo10.Sushi == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/sushi.png')}}">
+            {{pass}}
+            {{if (exvideo10.Breakfast == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/breakfast.png')}}">
+            {{pass}}
+
+            {{exvideo11 =db(db.interestSports.id==profile.id).select().first()}}
+            {{if (exvideo11.Soccer == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/soccer.png')}}">
+            {{pass}}
+            {{if (exvideo11.Basketball == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/basketball.png')}}">
+            {{pass}}
+            {{if (exvideo11.Football == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/football.png')}}">
+            {{pass}}
+            {{if (exvideo11.RunningJogging == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/runningjogging.png')}}">
+            {{pass}}
+            {{if (exvideo11.Tennis == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/tennis.png')}}">
+            {{pass}}
+            {{if (exvideo11.Chess == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/chess.png')}}">
+            {{pass}}
+
+            {{exvideo21 =db(db.interestActivities.id==profile.id).select().first()}}
+            {{if (exvideo21.Hicking == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/hiking.png')}}">
+            {{pass}}
+            {{if (exvideo21.Partying == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/wine.png')}}">
+            {{pass}}
+            {{if (exvideo21.Working_Out == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/workout.png')}}">
+            {{pass}}
+            {{if (exvideo21.Travel == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/travel.png')}}">
+            {{pass}}
+            {{if (exvideo21.Reading == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/reading.png')}}">
+            {{pass}}
+            {{if (exvideo21.Skydiving == True):}}
+                <img height="100" width="100" src="{{=URL('static','images/skydiving.png')}}">
+            {{pass}}
+            {{exvideo31 =db(db.interestHobbies.id==profile.id).select().first()}}
+            {{if (exvideo31.Games == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/games.png')}}">
+            {{pass}}
+            {{if (exvideo31.Sciences == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/science.png')}}">
+            {{pass}}
+            {{if (exvideo31.Art == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/art.png')}}">
+            {{pass}}
+            {{if (exvideo31.Movies == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/photography.png')}}">
+            {{pass}}
+            {{if (exvideo31.Cooking == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/cooking.png')}}">
+            {{pass}}
+            {{if (exvideo31.Guitar == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/guitar.png')}}">
+            {{pass}}
+            {{exvideo41 =db(db.interestPlaces.id==profile.id).select().first()}}
+            {{if (exvideo41.Beach == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/beach.png')}}">
+            {{pass}}
+            {{if (exvideo41.Woods == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/camping.png')}}">
+            {{pass}}
+            {{if (exvideo41.Concert == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/concert.png')}}">
+            {{pass}}
+            {{if (exvideo41.Library == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/library.png')}}">
+            {{pass}}
+            {{if (exvideo41.WorldMap == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/worldmap.png')}}">
+            {{pass}}
+            {{if (exvideo41.HomeWithDog == True):}}
+                <img height="100" width="100"  src="{{=URL('static','images/home.png')}}">
+            {{pass}}
+
+        {{pass}}
+        </center>
+    </div>
+
+    
+    {{if profile.id == auth.user.id:}}
+        <center> 
+        <a href="{{=URL('default', 'morepictures', args=[profile.id])}}"><button>Change your Slideshow</button></a></center>
+    {{pass}}   
+
+
+   <script type="text/javascript">
+        
+              
+            var count = 0;
+            var image1=new Image()
+            {{if  images.picture1 == None or len(images.picture1) == 0:}}
+                count++;
+            {{else:}}
+                image1.src="{{=URL('download', args=images.picture1)}}"
+
+            {{pass}}
+
+            var image2=new Image()
+            {{if  images.picture2 == None or len(images.picture2) == 0:}}
+                count++;
+            {{else:}}
+                image2.src="{{=URL('download', args=images.picture2)}}"
+            {{pass}}
+            var image3=new Image()
+            {{if images.picture3 == None or len(images.picture3) == 0:}}
+                count++;
+            {{else:}}
+                image3.src="{{=URL('download', args=images.picture3)}}"
+            {{pass}}
+            if (count==3){
+                image1.src="{{=URL('static', 'images/No_Image_Available.png')}}"
+            }
+   
+    </script>
+
+
+    <center id="slides">
+        <img src="{{=URL('download', args=images.picture1)}}" name="slide" height ="400px" > 
+    </center>
+
+    <script type="text/javascript">
+        <!--
+        var step=1
+        function slideit() {
+            //statements to keep the sideshow repeat each time it reaches the end
+            if (step==1 && image1.src.length==0){
+                step++;
+                slideit()
+            }
+            else if (step==2 && image2.src.length==0 ){
+                step++;
+                slideit()
+            }
+            else if (step==3 && image3.src.length==0 ){
+                step=1;
+                slideit()
+            }
+            else {
+               document.images.slide.src=eval("image"+step+".src")
+
+                ima = document.images.slide.src;
+                
+
+                if (document.images.slide.width > document.images.slide.height){
+                    document.images.slide.width = "500";
+                    document.images.slide.removeAttribute("height");
+                }
+                else {
+                    document.images.slide.height = "400";
+                    document.images.slide.removeAttribute("width");
+                }
+                if(step<3)
+                    step++
+                else
+                    step=1 
+                setTimeout("slideit()", 2500)    
+            }
+                   
+        }  
+        slideit()
+        $( document ).ready(function() {
+
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:\)/g, "<i class='em em-blush'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:\(/g, "<i class='em em-disappointed'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:p/g, "<i class='em em-stuck_out_tongue'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:D/g, "<i class='em em-grinning'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:o/g, "<i class='em em-hushed'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/;\)/g, "<i class='em em-wink'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/B\|/g, "<i class='em em-sunglasses'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:\\/g, "<i class='em em-confused'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:'\(/g, "<i class='em em-cry'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:\*/g, "<i class='em em-kissing_heart'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/\^_\^/g, "<i class='em em-relieved'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/-_-/g, "<i class='em em-expressionless'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/o.O/g, "<i class='em em-flushed'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/:'D/g, "<i class='em em-joy'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/\(y\)/g, "<i class='em em---1'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/\(-y\)/g, "<i class='em em--1'></i>")
+            });
+            $("div.com").html(function (index, text) {
+                this.innerHTML = text.replace(/v3/g, "<i class='em em-heart'></i>")
+            });
+
+            $( "#target1" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + "(y)";
+                });
+            });
+
+            $( "#target2" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + "(-y)";
+                });
+            });
+            $( "#target3" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":)";
+                });
+            });
+            $( "#target4" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":(";
+                });
+            });
+            $( "#target5" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":p";
+                });
+            });
+            $( "#target6" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":D";
+                });
+            });
+            $( "#target7" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":o";
+                });
+            });
+            $( "#target8" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ";)";
+                });
+            });
+            $( "#target9" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + "B|";
+                });
+            });
+            $( "#target10" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":\\";
+                });
+            });
+            $( "#target11" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":'(";
+                });
+            });
+            $( "#target12" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":*";
+                });
+            });
+            $( "#target13" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + "^_^";
+                });
+            });
+            $( "#target14" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + "-_-";
+                });
+            });
+            $( "#target15" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + "o.O";
+                });
+            });
+            $( "#target16" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + ":'D";
+                });
+            });
+            $( "#target17" ).click(function() {
+              $("textarea").val(function( index, value ) {
+                  return value + "v3";
+                });
+            });
+
+
+
+        });
+    </script>
+
+    {{if profile.id == auth.user.id:}}
+        <center>
+        <a href="{{=URL('default', 'video', args=[profile.id])}}"><button>Add/Change Video</button></a></center>
+    {{pass}}    
+
+    {{if images.videos:}}
+        <center><video src="{{=URL('download', args=images.videos)}}"  width="300" height="300" controls  ></video></center>
+    {{pass}}
+
+
+    {{if (request.args(1,cast=int)!=-1 and (auth.user.id==match.idFromMatch or auth.user.id==match.idToMatch)):}}
+        <div id="messages">
+        <center>
+            {{if len(comments):}}
+                <h2>Messages</h2><br /><p>
+                <div id="comments">
+                {{for post in comments:}}
+                    <div class="com">
+                        {{if post.author != auth.user.first_name:}}
+                            <p style="color:red; padding-right: 3px;    ">{{=post.author}}: </p><p> {{=post.body}} <i> - sent on
+                             {{=post.timesent}}</i></p>
+                        {{else:}}    
+                            <p style="color:blue; padding-right: 3px;">you: </p> <p>{{=post.body}}<i> - sent on 
+                            {{=post.timesent}}</i></p>
+                        {{pass}}
+                    </div>
+                {{pass}}
+                </div>
+                </p>
+            {{else:}}
+                <h2>No messages yet</h2>
+            {{pass}}
+            <h2>Send a message to {{=profile.name}}</h2>
+            <span class = "emoji">available emojis: </span> &nbsp&nbsp&nbsp&nbsp&nbsp
+            <i id="target1" class="btn2 em em---1"></i>
+            <i id="target2" class="btn2 em em--1"></i>
+            <i id="target3" class="btn2 em em-blush"></i>
+            <i id="target4" class="btn2 em em-disappointed"></i>
+            <i id="target5" class="btn2 em em-stuck_out_tongue"></i>
+            <i id="target6" class="btn2 em em-grinning"></i>
+            <i id="target7" class="btn2 em em-hushed"></i>
+            <i id="target8" class="btn2 em em-wink"></i>
+            <i id="target9" class="btn2 em em-sunglasses"></i>
+            <i id="target10" class="btn2 em em-confused"></i>
+            <i id="target11" class="btn2 em em-cry"></i>
+            <i id="target12" class="btn2 em em-kissing_heart"></i>
+            <i id="target13" class="btn2 em em-relieved"></i>
+            <i id="target14" class="btn2 em em-expressionless"></i>
+            <i id="target15" class="btn2 em em-flushed"></i>
+            <i id="target16" class="btn2 em em-joy"></i>
+            <i id="target17" class="btn2 em em-heart"></i>
+            <center>
+                {{=form}}
+            </center>
+        </center>
+        </div>
+    {{pass}}
+</div>
+<center>
+<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src={{=mapSource}} allowfullscreen>
+</iframe>
+</center>
+</body>

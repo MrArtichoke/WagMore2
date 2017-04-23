@@ -1,0 +1,6 @@
+<head>
+    
+    {{response.files.append(URL('static', 'css/bootstrap-theme.min.css'))}}
+    {{include 'web2py_ajax.html'}}
+    
+</head>

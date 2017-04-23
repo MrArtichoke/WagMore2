@@ -1,0 +1,277 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Create profile</title>
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+    {{response.files.append(URL('static','css/create_profile.css'))}}
+    {{include 'web2py_ajax.html'}}
+        <!--  Mobile Viewport Fix
+          j.mp/mobileviewport & davidbcalhoun.com/2010/viewport-metatag
+          device-width: Occupy full width of the screen in its current orientation
+          initial-scale = 1.0 retains dimensions instead of zooming out if page height > device height
+          user-scalable = yes allows the user to zoom in -->
+    <meta name="viewport" content="width=device-width" />
+</head>
+<style>
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  
+    { 
+             body{
+		background-color:  #edf7fb !important;
+	}
+        #infoPerson{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 900px !important;
+		height: 800px !important;
+		margin-left: 100px;
+		margin-left: 400px !important;
+		float:center !important;
+		padding-left: 10px;
+        font-size: 48px !important;
+        font-family:  "Trebuchet MS", Helvetica, sans-serif  !important;
+	}
+         #title{
+		float:left;
+             font-size: 80px !important;
+              font-family:  Century Gothic, sans-serif !important;
+	}
+        #user{
+        position: absolute !important;
+    }
+        #infoDog{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 900px !important;
+		height: 800px !important;
+		margin-left: 5px;
+		float:left;
+        font-family:  Century Gothic, sans-serif !important;
+        font-size: 48px !important;
+        margin-top: 90px !important;
+		margin-left: 400px!important;
+
+
+	}
+         #info{
+        margin-top: 400px;
+        margin-left: 580px !important;
+
+	}
+          #bone{
+        margin-top: -67px;
+        margin-bottom: 80px;
+        height=200px !important;
+        margin-left: 500px !important;
+    }
+         #header{
+		display: flex;
+        justify-content: center;
+        height:250px !important;
+        width:1700px !important;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+        padding-right: 100px !important;
+	}
+}
+     @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+         body{
+		background-color:  #edf7fb !important;
+	}
+        #infoPerson{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 900px !important;
+		height: 800px !important;
+		margin-left: 100px;
+		margin-left: 250px !important;
+		float:center !important;
+		padding-left: 10px;
+        font-size: 48px !important;
+        font-family:  "Trebuchet MS", Helvetica, sans-serif  !important;
+	}
+         #title{
+		float:left;
+             font-size: 80px !important;
+              font-family:  Century Gothic, sans-serif !important;
+	}
+        #user{
+        position: absolute !important;
+    }
+        #infoDog{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 900px !important;
+		height: 800px !important;
+		margin-left: 5px;
+		float:left;
+        font-family:  Century Gothic, sans-serif !important;
+        font-size: 48px !important;
+        margin-top: 90px !important;
+		margin-left: 250px!important;
+
+
+	}
+         #info{
+        margin-top: 400px;
+        margin-left: 580px !important;
+
+	}
+          #bone{
+        margin-top: -67px;
+        margin-bottom: 80px;
+        height=200px !important;
+        margin-left: 350px !important;
+    }
+         #header{
+		display: flex;
+        justify-content: center;
+        height:250px !important;
+        width:1500px !important;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+	}
+     }
+	body{
+		background-color: #edf7fb;
+	}
+
+	#paw{
+        position: absolute;
+        margin-left: 30px;
+        margin-top: 50px;
+        opacity:0.5;
+        transform: scaleX(-1);
+        z-index: -1;
+    }
+    #paw2{
+        position: absolute;
+        right: 30px;
+        margin-top: 50px;
+        opacity:0.5;
+        z-index: -1;
+    }
+	#infoPerson{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 350px;
+		height: auto;
+		margin-left: 500px;
+		margin-right: 5px;
+		float:left;
+		padding-left: 10px;
+        font-family:  Century Gothic, sans-serif;
+	}
+	#infoDog{
+		border: 3px dashed black;
+		background-color: lightblue;
+		width: 350px;
+		height: 398px;
+		margin-right: 100px;
+		margin-left: 5px;
+		float:left;
+		padding-left: 10px;
+        font-family:  Century Gothic, sans-serif;
+
+
+	}
+	#info{
+        margin-top: 400px;
+        display: flex;
+        justify-content: center;
+        clear:both;
+
+	}
+	.line{
+		clear:both;
+		float: left;
+		padding: 5px;
+	}
+	.form-group{
+		float:left;
+		padding-right: 5px;
+	}
+	.text{
+		float:left;
+		padding-right: 5px;
+	}
+	#logo{
+		position: absolute;
+	    left: 10px;
+	    top: 10px;
+	}
+	#title{
+		float:left;
+         font-family:  Century Gothic, sans-serif;
+        font-size: 36px;
+	}
+	center{
+		clear:both;
+	}
+	#header{
+		display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+	}
+	#user{
+        position: absolute;
+        float:left;
+        margin-top: -70px;
+        margin-left: -350px;
+        transform: rotate(-20deg);
+    }
+    #dog{
+        position: absolute;
+        margin-top: -70px;
+        margin-left: 350px;
+        transform: rotate(20deg);
+    }
+    #bone{
+        margin-top: -67px;
+        margin-bottom: 80px;
+        height=150px;
+    }
+
+</style>
+<body>
+	<div id="header">
+	        <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+	        <div id="title">
+	            Create your profile
+	        </div>
+	</div>
+	<center >
+		<img id="bone" alt="Error" src="{{=URL('static', 'images/profile2.png')}}">
+	</center>
+	<!--<center><img alt="Error" src="http://127.0.0.1:8000/WagMore/static/_2.14.6/images/login-dogperson.png" with="200px", height="200px"></center>		-->		
+	<img id="paw" src="{{=URL('static', 'images/appLogo.png')}}" width="200" height="152" alt="Woof!">
+
+	<img id="paw2" src="{{=URL('static', 'images/appLogo.png')}}" width="200" height="152" alt="Woof!">
+
+
+        <img id="user" src="{{=URL('static', 'images/person.png')}}" width="120" height="120" alt="User"></div>
+		<div id= "infoPerson">
+			<center><h3 style="text-decoration: underline">ABOUT YOU</h3></center>
+            {{=form.custom.begin}}
+            <b>Name:</b> <div>{{=form.custom.widget.name}}</div>
+            <b>Gender:</b> <div>{{=form.custom.widget.gender}}</div>
+            <b>Birth Date:</b> <div>{{=form.custom.widget.birthDate}}</div>
+            <b>Interest:</b> <div>{{=form.custom.widget.interest}}</div>
+            <b>Bio:</b> <div>{{=form.custom.widget.bio}}</div>
+		</div>
+		<img id="dog" src="{{=URL('static', 'images/dog.png')}}" width="120" height="120" alt="Woof!">
+		<div id= "infoDog">
+			<center><h3 style="text-decoration: underline">ABOUT YOUR DOG</h3></center>
+            <b>Dog's name:</b> <div>{{=form.custom.widget.dogName}}</div>
+            <b>Dog's gender:</b> <div>{{=form.custom.widget.dogGender}}</div>
+            <b>Dog's age:</b> <div>{{=form.custom.widget.dogAge}}</div>
+            <b>Dog's bio:</b> <div>{{=form.custom.widget.dogBio}}</div>
+		</div>
+  <div id="info">
+        <input type="image" alt="Error" src="{{=URL('static', 'images/nextButton.png')}}", height="150px">
+        {{=form.custom.end}}
+    </div>
+ </body>
+</html>
+<!--FOr injecting html variables into python*/-->

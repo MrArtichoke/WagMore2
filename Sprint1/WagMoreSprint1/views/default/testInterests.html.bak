@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Create profile</title>
+
+</head>
+
+<body>
+    
+	<input type="checkbox" name = "food"><img src="http://127.0.0.1:8000/WagMore/static/_2.14.6/images/taco.png" width=200px height=200px>
+	<input type="checkbox" name = "food"><img src="http://127.0.0.1:8000/WagMore/static/_2.14.6/images/pizza.png" width=200px height=200px><br>
+    <input type="checkbox" name = "food"><img src="http://127.0.0.1:8000/WagMore/static/_2.14.6/images/fruitveggies.png" width=200px height=200px>
+    <input type="checkbox" name = "food"><img src="http://127.0.0.1:8000/WagMore/static/_2.14.6/images/burger.png" width=200px height=200px>
+
+   
+ </body>
+</html>

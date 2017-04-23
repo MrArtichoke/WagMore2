@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Create profile</title>
+  <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+  {{response.files.append(URL('static','css/create_profile.css'))}}
+  {{include 'web2py_ajax.html'}}
+
+</head>
+<style>
+	body{
+			background-color: #edf7fb;
+		}
+	#goMP{
+		padding:8px 16px;
+		color: white;
+		background-color: #0275d8;	
+		text-transform: uppercase;
+		border:none;
+		font-weight: 500;
+		cursor: pointer;
+	}	
+	#logo{
+		position: absolute;
+	    left: 10px;
+	    top: 10px;
+	}
+	#title{
+		float:left;
+	}
+	center{
+		clear:both;
+	}
+	#header{
+		display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+	}	
+
+</style>
+	
+
+<body>
+
+	<div id="header">
+		<img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+	    <div id="title">
+			<h1>Create your profile</h1>
+
+		</div>
+	</div>
+	<center >
+		<img style="margin-top: -67px" alt="Error" src="{{=URL('static', 'images/confirmation.png')}}", height="150px">
+	</center>	
+	<center><h3>CONGRATULATIONS! Your profile has been created. </h3></center>
+	<Center><h3>Now you can go to the main page and start looking for other people.</h3></Center>
+
+	<div id="info">
+		<input id="goMP" type="submit" value="See other profiles" onclick="location.href='{{=URL('default', 'profiles',args='ReloadMatches')}}'"> 
+	</div>
+
+</html>
