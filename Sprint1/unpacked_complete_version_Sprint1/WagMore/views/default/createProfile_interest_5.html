@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Create profile</title>
+    <script src="{{=URL('static','js/web2py.js')}}"
+        type="text/javascript"></script>
+        <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+    {{
+        response.files.insert(0,URL('static','js/jquery.js'))
+        response.files.insert(0,URL('static','js/interests.js'))
+        response.files.insert(1,URL('static','css/create_profile.css'))
+        response.include_meta()
+        response.include_files()
+    }}
+
+</head>
+<script>
+countInterests = 0;
+function interests(num){
+
+	if(document.getElementById(num).style.border == ""){
+		if (countInterests<2){
+			document.getElementById(num).style.border = "2px solid black";
+			document.getElementById(num).style.background = "lightgrey";
+			countInterests++;
+      setCheckBox(num);
+
+		}
+		else{
+			document.getElementById("errorMsn").innerHTML="You can only select two images";
+		}
+	}
+	else{
+		document.getElementById(num).style.border = ""
+		document.getElementById(num).style.background = "#edf7fb";
+		countInterests--;
+    setCheckBox(num);
+		if(document.getElementById("errorMsn").innerHTML!=""){
+			document.getElementById("errorMsn").innerHTML=""
+		}
+	}
+  return
+}
+function changeColor(num,id){
+	if(document.getElementById(id).style.border == ""){
+		if (num==1){
+			document.getElementById(id).style.background = "lightblue";
+			document.getElementById(id).style.width = "210px";
+			document.getElementById(id).style.height = "210px";
+		}
+		else{
+			document.getElementById(id).style.background = "#edf7fb";
+			document.getElementById(id).style.width = "200px";
+			document.getElementById(id).style.height = "200px";
+
+		}	
+	}	
+}
+function link(link){
+	if (countInterests != 2){
+		alert("You have to select two images");
+		return false;
+	}
+    else{
+	document.location.href = link}
+}
+
+function hideChecks(){
+  var names=["interestPlaces_Beach","interestPlaces_Woods","interestPlaces_Library",
+             "interestPlaces_Concert","interestPlaces_WorldMap","interestPlaces_HomeWithDog",];
+  for (i=0;i<6;i++){
+    document.getElementById(names[i]).style.display = 'none';
+    document.getElementById(names[i]).checked = false;
+  }
+}
+
+function setCheckBox(name){
+  var str1="interestPlaces_"
+  var checkID = str1.concat(name);
+	document.getElementById(checkID).checked= !document.getElementById(checkID).checked;
+  document.getElementById(checkID).style.display = 'none';
+}
+</script>
+<style>
+        @media screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : portrait){
+    body{ zoom: 149% !important;
+    }
+             #logo{
+        width: 150px !important;
+        height: 100px !important;
+    }
+   }
+        @media only screen and (min-device-width : 375px) and (max-device-width : 667px) { 
+            body{ zoom: 149% !important;
+                background-color: #edf7fb;
+    }
+             #logo{
+        width: 150px !important;
+        height: 100px !important;
+    }
+       }
+body{
+		background-color: #edf7fb;
+	}
+	#errorMsn{
+		color:red;
+	}
+	.tooltip:hover{
+	    width: 210px;
+	    height: 210px;
+	    background-color: lightblue;
+	}
+	#header{
+		display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); 
+        padding-top: 15px;
+	}
+	.tooltip{
+		width: 200px;
+		height: 200px;
+		float:left;
+		margin: 10px;
+	}
+	.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    margin-top: -40px;
+    margin-left: -20px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+	}
+	.tooltip:hover .tooltiptext {
+    	visibility: visible;
+	}
+	.lineI{
+		clear:both;
+		width: 700px;
+		margin: auto;
+	}
+</style>
+
+<body onload="hideChecks()">
+
+	<div id="header">
+		<img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+	    <div id="title">
+			<h1>Create your profile</h1>
+
+		</div>
+	</div>
+	<center >
+		<img style="margin-top: -67px" alt="Error" src="{{=URL('static', 'images/interests.png')}}", height="150px">
+	</center>
+
+
+    <div id="interestSelection"><center>
+     <div> <h3> 5/5 Favorite Places </h3>
+	 </div>
+     {{if(request.args(0)=="Remake"):}}
+        <center >
+            <h2 style="color:red;">Uops, apparently you forgot to fill this part of your profile</h2>
+        </center>
+    {{pass}}
+     <div id="errorMsn">
+	 </div>	<br>
+         {{=form.custom.begin}}
+         <div class="lineI"> 
+         <div class="tooltip" onmouseover="changeColor(1,'Beach')" onmouseout="changeColor(2,'Beach')">         
+         	{{=form.custom.widget.Beach}} 
+         	<img id="Beach" height="200" width="200" onclick="interests('Beach')" src="{{=URL('static','images/beach.png')}}">
+         	<span class="tooltiptext">Beach</span>
+         </div> 
+         <div class="tooltip" onmouseover="changeColor(1,'Woods')" onmouseout="changeColor(2,'Woods')"> 	
+         	{{=form.custom.widget.Woods}} 
+         	<img id="Woods" height="200" width="200" onclick="interests('Woods')" src="{{=URL('static','images/camping.png')}}">
+         	<span class="tooltiptext">Woods</span>
+         </div> 
+         <div class="tooltip" onmouseover="changeColor(1,'Library')" onmouseout="changeColor(2,'Library')"> 	
+         	{{=form.custom.widget.Library}} 
+         	<img id="Library" height="200" width="200" onclick="interests('Library')" src="{{=URL('static','images/library.png')}}">
+         	<span class="tooltiptext">Library</span>
+         </div> 
+         </div>
+         <br><br>
+        <div class="lineI">          
+		<div class="tooltip" onmouseover="changeColor(1,'Concert')" onmouseout="changeColor(2,'Concert')"> 
+         	{{=form.custom.widget.Concert}} 
+         	<img id="Concert" height="200" width="200" onclick="interests('Concert')" src="{{=URL('static','images/concert.png')}}">
+         	<span class="tooltiptext">Concert</span>
+         </div> 
+		<div class="tooltip" onmouseover="changeColor(1,'WorldMap')" onmouseout="changeColor(2,'WorldMap')">
+         	{{=form.custom.widget.WorldMap}} 
+         	<img id="WorldMap" height="200" width="200" onclick="interests('WorldMap')" src="{{=URL('static','images/worldmap.png')}}">
+         	<span class="tooltiptext">World</span>
+         </div> 
+         <div class="tooltip" onmouseover="changeColor(1,'HomeWithDog')" onmouseout="changeColor(2,'HomeWithDog')">	
+         	{{=form.custom.widget.HomeWithDog}} 
+         	<img id="HomeWithDog"  height="200" width="200" onclick="interests('HomeWithDog')" src="{{=URL('static','images/home.png')}}">
+         	<span class="tooltiptext">Home with dog</span>
+         </div> 
+         </div>
+    </center></div>
+
+
+      <center>  
+      <input  type="image" onclick="
+                                    if (countInterests == 2) {
+                                        link('{{=URL("default/createProfile_aboutYourself")}}')
+                                    }
+                                    else {
+                                    document.getElementById('errorMsn').innerHTML='You have to select two images'; return false;}" src="{{=URL('static','images/nextButton.png')}}" , height="150px"/></center>
+      <div href="javascript:void(0)">
+      {{=form.custom.end}}
+	</div>
+ </body>
+</html>
