@@ -1,0 +1,1123 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>CSS Stats</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>body,button{margin:0}button,input,select{font-family:inherit;font-size:100%}svg{max-height:100%}body{font-family:'-apple-system',BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif;line-height:1.5;font-size:100%}h1,h2{font-family:'-apple-system',BlinkMacSystemFont,'Helvetica Neue',Helvetica,sans-serif;font-weight:700;line-height:1.25;margin-top:1em;margin-bottom:.5em}p,ul{font-size:1rem;margin-top:0;margin-bottom:1rem}ul{padding-left:2rem}pre{font-family:'Source Code Pro',Consolas,monospace;font-size:inherit;margin-top:0;margin-bottom:1rem;overflow-x:scroll}h1{font-size:2rem}.h2,h2{font-size:1.5rem}.h3{font-size:1.25rem}.h4{font-size:1rem}.h5{font-size:.875rem}.h6{font-size:.75rem}.list-reset{list-style:none;padding-left:0}input,select{margin-top:0;margin-bottom:.5rem}input[type=url]{box-sizing:border-box;height:2.25em;padding:.25em 1rem;-webkit-appearance:none}select{box-sizing:border-box;line-height:1.75;padding:.25em 1rem}select:not([multiple]){height:2.25em}.button,button{font-weight:700;text-decoration:none;cursor:pointer;display:inline-block;box-sizing:border-box;line-height:1.125;padding:.5em 1rem;margin:0;height:auto;border:1px solid transparent;-webkit-appearance:none}::-moz-focus-inner{border:0;padding:0}.button:hover{text-decoration:none}.block{display:block}.full-width{width:100%}.bold{font-weight:700}.center{text-align:center}.m0{margin:0}.mt0{margin-top:0}.mb0{margin-bottom:0}.mt1{margin-top:.5rem}.mb1{margin-bottom:.5rem}.mb2{margin-bottom:1rem}.mb3{margin-bottom:2rem}.mb4{margin-bottom:4rem}.mxn2{margin-left:-1rem;margin-right:-1rem}.p2{padding:1rem}.py2{padding-top:1rem;padding-bottom:1rem}.px2{padding-left:1rem;padding-right:1rem}.py3{padding-top:2rem;padding-bottom:2rem}.flex{display:-ms-flexbox;display:flex}.flex-column{-ms-flex-direction:column;flex-direction:column}.flex-wrap{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-center{-ms-flex-align:center;align-items:center}.flex-grow{-ms-flex:1 0 auto;flex:1 0 auto}.flex-wrap>div{box-sizing:border-box}@media (min-width:40em){.sm-flex{display:-ms-flexbox;display:flex}}.container{max-width:72em;margin-left:auto;margin-right:auto}.col-4{width:33.33333333333333%}.col-6{width:50%}@media (min-width:40em){.sm-col-3{width:25%}.sm-col-4{width:33.33333333333333%}}@media (min-width:52em){.md-col-3{width:25%}}@media (min-width:64em){.lg-col-2{width:16.666666666666664%}}.h0,.h00{font-size:2rem}@media (min-width:40em){.h0{font-size:2.5rem}.h00{font-size:3rem}.sm-right-align{text-align:right}}@media (min-width:52em){.h0{font-size:3rem}.h00{font-size:4rem}}@media (min-width:64em){.h0{font-size:4rem}.h00{font-size:5rem}}.lh1{line-height:1}.break-word{word-wrap:break-word}.truncate{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}input.input-big{height:3.5rem}select{-webkit-appearance:none;background:url(/svg/arrow.svg) right 13px top 14px no-repeat;background-size:18px 18px}body{color:#345;background-color:#fff}a{color:#0076df;text-decoration:none}a:hover{text-decoration:underline}pre{background-color:#eee;border-radius:3px}.text-link,.text-link:link,.text-link:visited{color:#345;transition:color .15s ease-in}.text-link:hover{color:#777;transition:color .15s ease-in}.text-link:active{color:#ccc;transition:color .15s ease-in}.text-link:focus{color:#0076df;transition:color .15s ease-in}.dark-gray{color:#345}.red{color:#f95020}.bg-lighter-gray{background-color:#eee}.button-blue{color:#fff;background-color:#0076df;border-radius:3px;transition-duration:.1s;transition-timing-function:ease-out;transition-property:box-shadow,background-color}.button-blue:hover{opacity:.875}.button-blue:active{box-shadow:inset 0 0 0 32px rgba(0,0,0,.125),inset 0 2px 3px 0 rgba(0,0,0,.25)}.button-blue:focus{outline:0;box-shadow:0 0 0 2px rgba(255,255,255,.5),0 0 1px 4px rgba(0,118,223,.5)}.button-blue:disabled{opacity:.5}.field-light{background-color:#fff;transition:box-shadow .2s ease;border-style:solid;border-width:1px;border-color:#345;border-radius:3px}.field-light:focus{outline:0;border-color:#0076df;box-shadow:0 0 2px rgba(0,118,223,.5)}.field-light:disabled{color:#777;background-color:rgba(0,0,0,.125)}.border-top{border-top-style:solid;border-top-width:1px;border-top-color:#345}.border-bottom{border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#345}.rounded{border-radius:3px}.hljs{display:block;overflow-x:auto;padding:.5em;color:#333;background:#f8f8f8;-webkit-text-size-adjust:none}.hljs-comment,.hljs-javadoc{color:#998;font-style:italic}.hljs-keyword,.hljs-request,.hljs-status,.hljs-subst,.hljs-winutils{color:#333;font-weight:700}.hljs-hexcolor,.hljs-number{color:teal}.hljs-dartdoc,.hljs-phpdoc,.hljs-string{color:#d14}.hljs-id,.hljs-title{color:#900;font-weight:700}.hljs-subst{font-weight:400}.hljs-type{color:#458;font-weight:700}.hljs-tag{color:navy;font-weight:400}.hljs-attribute,.hljs-variable{color:teal}.hljs-regexp{color:#009926}.hljs-prompt,.hljs-symbol{color:#990073}.hljs-built_in{color:#0086b3}.hljs-cdata,.hljs-doctype,.hljs-pi,.hljs-pragma,.hljs-preprocessor,.hljs-shebang{color:#999;font-weight:700}.hljs-deletion{background:#fdd}.hljs-addition{background:#dfd}.hljs-chunk{color:#aaa}.Chartable-label{font-size:.875rem;color:rgba(0,0,0,.5)}.Chartable-label--x{font-weight:700;color:currentcolor}.Chartable-rule{border-color:rgba(0,0,0,.125)}.Chartable-line{stroke:currentcolor;stroke-width:1px;-webkit-transform:translateY(.5px);transform:translateY(.5px)}.Chartable-value{font-size:.875rem;font-weight:700}.Chartable-bar:nth-child(2){fill:rgba(51,68,85,.75)}@media print{h1,h2{page-break-after:avoid}section{page-break-inside:avoid}.print-hide{display:none!important}.sm-right-align{text-align:right}.sm-flex{display:-ms-flexbox;display:flex}.md-col-3,.sm-col-3{width:25%}.lg-col-2{width:16.666666666666664%}}</style>
+</head>
+<body class="flex flex-column" style="min-height:100vh">
+
+  <header class="px2 xmb2 xborder-bottom">
+    <div class="container xborder-bottom">
+      <div class="flex flex-center mxn2">
+        <a href="/" class="h3 bold button py2 text-link">
+          CSS Stats
+        </a>
+        <div class="flex-grow"></div>
+        <a href="http://github.com/mrmrs/cssstats" class="h5 button py2 text-link print-hide">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <div class="container px2">
+      
+
+<header class="sm-flex flex-center py2 mb3 border-bottom">
+  <div class="flex-grow break-word" style="max-width:80%">
+    <h1 class="m0" style="max-width:80%">
+          WagMore
+    </h1>
+  </div>
+  <div class="sm-right-align flex-grow">
+    <h1 class="h2 m0">4 KB</h1>
+  </div>
+</header>
+
+<section id="top-stats" class="flex flex-wrap mxn2 mb4">
+  <div class="col-6 md-col-3 p2">
+    <h1 class="h00 lh1 m0">32</h1>
+    <p class="h3 bold lh1 m0">Rules</p>
+  </div>
+  <div class="col-6 md-col-3 p2">
+    <h1 class="h00 lh1 m0">34</h1>
+    <p class="h3 bold lh1 m0">Selectors</p>
+  </div>
+  <div class="col-6 md-col-3 p2">
+    <h1 class="h00 lh1 m0">89</h1>
+    <p class="h3 bold lh1 m0">Declarations</p>
+  </div>
+  <div class="col-6 md-col-3 p2">
+    <h1 class="h00 lh1 m0">27</h1>
+    <p class="h3 bold lh1 m0">Properties</p>
+  </div>
+</section>
+
+<section id="declarations" class="mb4">
+  <h1 class="h2 m0">Total Declarations</h1>
+  <div class="flex flex-wrap mxn2">
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <p class="bold lh1 m0">Font Size</p>
+      <h1 class="h0 lh1 m0">1</h1>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <p class="bold lh1 m0">Float</p>
+      <h1 class="h0 lh1 m0">2</h1>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <p class="bold lh1 m0">Width</p>
+      <h1 class="h0 lh1 m0">19</h1>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <p class="bold lh1 m0">Height</p>
+      <h1 class="h0 lh1 m0">14</h1>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <p class="bold lh1 m0">Color</p>
+      <h1 class="h0 lh1 m0">3</h1>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <p class="bold lh1 m0">Background Color</p>
+      <h1 class="h0 lh1 m0">5</h1>
+    </div>
+  </div>
+</section>
+
+<section id="unique-colors" class="mb4">
+  <h2>
+    3
+    Unique Colors
+  </h2>
+  <div class="flex flex-wrap mxn2">
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="h0 lh1 bold" style="color:white">Aa</div>
+        <div class="h6 break-word">white</div>
+      </div>
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="h0 lh1 bold" style="color:#000">Aa</div>
+        <div class="h6 break-word">#000</div>
+      </div>
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="h0 lh1 bold" style="color:red">Aa</div>
+        <div class="h6 break-word">red</div>
+      </div>
+  </div>
+</section>
+
+<section id="unique-background-colors" class="mb4">
+  <h2>
+    5
+    Unique Background Colors
+  </h2>
+  <div class="flex flex-wrap mxn2">
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="mb1">
+          <svg viewBox="0 0 64 64" width="64" height="64" style="display:block;width:100%;height:auto">
+            <rect width="64" height="64" fill="green"/>
+          </svg>
+        </div>
+        <div class="h6 break-word">green</div>
+      </div>
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="mb1">
+          <svg viewBox="0 0 64 64" width="64" height="64" style="display:block;width:100%;height:auto">
+            <rect width="64" height="64" fill="#f44336"/>
+          </svg>
+        </div>
+        <div class="h6 break-word">#f44336</div>
+      </div>
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="mb1">
+          <svg viewBox="0 0 64 64" width="64" height="64" style="display:block;width:100%;height:auto">
+            <rect width="64" height="64" fill="rgb(0,0,0)"/>
+          </svg>
+        </div>
+        <div class="h6 break-word">rgb(0,0,0)</div>
+      </div>
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="mb1">
+          <svg viewBox="0 0 64 64" width="64" height="64" style="display:block;width:100%;height:auto">
+            <rect width="64" height="64" fill="rgba(0,0,0,0.4)"/>
+          </svg>
+        </div>
+        <div class="h6 break-word">rgba(0,0,0,0.4)</div>
+      </div>
+      <div class="col-4 sm-col-3 lg-col-2 p2">
+        <div class="mb1">
+          <svg viewBox="0 0 64 64" width="64" height="64" style="display:block;width:100%;height:auto">
+            <rect width="64" height="64" fill="#fefefe"/>
+          </svg>
+        </div>
+        <div class="h6 break-word">#fefefe</div>
+      </div>
+  </div>
+</section>
+
+<section id="unique-font-sizes" class="mb4">
+  <h2>
+    1
+    Unique Font Size
+  </h2>
+  <div class="">
+      <div class="bold truncate mb1" style="font-size:35px">
+        Font Size 35px
+      </div>
+  </div>
+</section>
+
+<section id="unique-font-families" class="mb4">
+  <h2>
+    1
+    Unique Font Family
+  </h2>
+    <div class="h3 bold break-word mb1" style="font-family:&quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif">
+      &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif
+    </div>
+</section>
+
+<section id="unique-z-index" class="mb4">
+  <h2>
+    1
+    Unique Z Index
+  </h2>
+    <div class="h3 bold break-word mb1" style="font-family:1">
+      1
+    </div>
+</section>
+
+<section id="unique-totals" class="mb4">
+  <h1 class="h2 mt0">Total vs. Unique Declarations</h1>
+  <p>89 total, 62 unique declarations</p>
+  <div class="flex flex-wrap mb4">
+    <div class="col-4 lg-col-2 mb4 center">
+      
+<div class="Chartable Chartable--bar-chart">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-bar {
+    }
+    .Chartable-rules,
+    .Chartable-values,
+    .Chartable-labels {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-value {
+      position: absolute;
+      text-align: center;
+    }
+    .Chartable-rule {
+      position: absolute;
+      text-align: left;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {
+      position: absolute;
+      text-align: center;
+    }
+  </style>
+  <div class="Chartable-rules">
+      <div class="Chartable-rule" style="top:220px">
+      </div>
+      <div class="Chartable-rule" style="top:170px">
+      </div>
+      <div class="Chartable-rule" style="top:120px">
+      </div>
+      <div class="Chartable-rule" style="top:70px">
+      </div>
+      <div class="Chartable-rule" style="top:20px">
+      </div>
+  </div>
+  <div class="Chartable-values">
+      <div class="Chartable-value" style="top:0px; left:14.285714285714285%;right:57.142857142857146%">
+          19
+      </div>
+      <div class="Chartable-value" style="top:105.26315789473682px; left:57.14285714285714%;right:14.285714285714292%">
+          9
+      </div>
+  </div>
+    <div class="Chartable-labels">
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:14.285714285714285%;right:57.142857142857146%">
+          Total
+        </div>
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:57.14285714285714%;right:14.285714285714292%">
+          Unique
+        </div>
+    </div>
+  <svg viewBox="0 0 384 240"
+    class="Chartable-svg"
+    width="384"
+    height="240"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+      <path class="Chartable-bar" d="M 54.857142857142854 220 v-200 h109.71428571428571 v200z"/>
+      <path class="Chartable-bar" d="M 219.42857142857142 220 v-94.73684210526316 h109.71428571428571 v94.73684210526316z"/>
+  </svg>
+
+</div>
+
+      <div class="h5 bold mt1">Width</div>
+    </div>
+    <div class="col-4 lg-col-2 mb4 center">
+      
+<div class="Chartable Chartable--bar-chart">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-bar {
+    }
+    .Chartable-rules,
+    .Chartable-values,
+    .Chartable-labels {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-value {
+      position: absolute;
+      text-align: center;
+    }
+    .Chartable-rule {
+      position: absolute;
+      text-align: left;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {
+      position: absolute;
+      text-align: center;
+    }
+  </style>
+  <div class="Chartable-rules">
+      <div class="Chartable-rule" style="top:220px">
+      </div>
+      <div class="Chartable-rule" style="top:170px">
+      </div>
+      <div class="Chartable-rule" style="top:120px">
+      </div>
+      <div class="Chartable-rule" style="top:70px">
+      </div>
+      <div class="Chartable-rule" style="top:20px">
+      </div>
+  </div>
+  <div class="Chartable-values">
+      <div class="Chartable-value" style="top:52.63157894736841px; left:14.285714285714285%;right:57.142857142857146%">
+          14
+      </div>
+      <div class="Chartable-value" style="top:126.31578947368422px; left:57.14285714285714%;right:14.285714285714292%">
+          7
+      </div>
+  </div>
+    <div class="Chartable-labels">
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:14.285714285714285%;right:57.142857142857146%">
+          Total
+        </div>
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:57.14285714285714%;right:14.285714285714292%">
+          Unique
+        </div>
+    </div>
+  <svg viewBox="0 0 384 240"
+    class="Chartable-svg"
+    width="384"
+    height="240"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+      <path class="Chartable-bar" d="M 54.857142857142854 220 v-147.3684210526316 h109.71428571428571 v147.3684210526316z"/>
+      <path class="Chartable-bar" d="M 219.42857142857142 220 v-73.6842105263158 h109.71428571428571 v73.6842105263158z"/>
+  </svg>
+
+</div>
+
+      <div class="h5 bold mt1">Height</div>
+    </div>
+    <div class="col-4 lg-col-2 mb4 center">
+      
+<div class="Chartable Chartable--bar-chart">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-bar {
+    }
+    .Chartable-rules,
+    .Chartable-values,
+    .Chartable-labels {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-value {
+      position: absolute;
+      text-align: center;
+    }
+    .Chartable-rule {
+      position: absolute;
+      text-align: left;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {
+      position: absolute;
+      text-align: center;
+    }
+  </style>
+  <div class="Chartable-rules">
+      <div class="Chartable-rule" style="top:220px">
+      </div>
+      <div class="Chartable-rule" style="top:170px">
+      </div>
+      <div class="Chartable-rule" style="top:120px">
+      </div>
+      <div class="Chartable-rule" style="top:70px">
+      </div>
+      <div class="Chartable-rule" style="top:20px">
+      </div>
+  </div>
+  <div class="Chartable-values">
+      <div class="Chartable-value" style="top:157.89473684210526px; left:14.285714285714285%;right:57.142857142857146%">
+          4
+      </div>
+      <div class="Chartable-value" style="top:168.42105263157896px; left:57.14285714285714%;right:14.285714285714292%">
+          3
+      </div>
+  </div>
+    <div class="Chartable-labels">
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:14.285714285714285%;right:57.142857142857146%">
+          Total
+        </div>
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:57.14285714285714%;right:14.285714285714292%">
+          Unique
+        </div>
+    </div>
+  <svg viewBox="0 0 384 240"
+    class="Chartable-svg"
+    width="384"
+    height="240"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+      <path class="Chartable-bar" d="M 54.857142857142854 220 v-42.10526315789474 h109.71428571428571 v42.10526315789474z"/>
+      <path class="Chartable-bar" d="M 219.42857142857142 220 v-31.57894736842105 h109.71428571428571 v31.57894736842105z"/>
+  </svg>
+
+</div>
+
+      <div class="h5 bold mt1">Margin</div>
+    </div>
+    <div class="col-4 lg-col-2 mb4 center">
+      
+<div class="Chartable Chartable--bar-chart">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-bar {
+    }
+    .Chartable-rules,
+    .Chartable-values,
+    .Chartable-labels {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-value {
+      position: absolute;
+      text-align: center;
+    }
+    .Chartable-rule {
+      position: absolute;
+      text-align: left;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {
+      position: absolute;
+      text-align: center;
+    }
+  </style>
+  <div class="Chartable-rules">
+      <div class="Chartable-rule" style="top:220px">
+      </div>
+      <div class="Chartable-rule" style="top:170px">
+      </div>
+      <div class="Chartable-rule" style="top:120px">
+      </div>
+      <div class="Chartable-rule" style="top:70px">
+      </div>
+      <div class="Chartable-rule" style="top:20px">
+      </div>
+  </div>
+  <div class="Chartable-values">
+      <div class="Chartable-value" style="top:157.89473684210526px; left:14.285714285714285%;right:57.142857142857146%">
+          4
+      </div>
+      <div class="Chartable-value" style="top:157.89473684210526px; left:57.14285714285714%;right:14.285714285714292%">
+          4
+      </div>
+  </div>
+    <div class="Chartable-labels">
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:14.285714285714285%;right:57.142857142857146%">
+          Total
+        </div>
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:57.14285714285714%;right:14.285714285714292%">
+          Unique
+        </div>
+    </div>
+  <svg viewBox="0 0 384 240"
+    class="Chartable-svg"
+    width="384"
+    height="240"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+      <path class="Chartable-bar" d="M 54.857142857142854 220 v-42.10526315789474 h109.71428571428571 v42.10526315789474z"/>
+      <path class="Chartable-bar" d="M 219.42857142857142 220 v-42.10526315789474 h109.71428571428571 v42.10526315789474z"/>
+  </svg>
+
+</div>
+
+      <div class="h5 bold mt1">Padding</div>
+    </div>
+    <div class="col-4 lg-col-2 mb4 center">
+      
+<div class="Chartable Chartable--bar-chart">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-bar {
+    }
+    .Chartable-rules,
+    .Chartable-values,
+    .Chartable-labels {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-value {
+      position: absolute;
+      text-align: center;
+    }
+    .Chartable-rule {
+      position: absolute;
+      text-align: left;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {
+      position: absolute;
+      text-align: center;
+    }
+  </style>
+  <div class="Chartable-rules">
+      <div class="Chartable-rule" style="top:220px">
+      </div>
+      <div class="Chartable-rule" style="top:170px">
+      </div>
+      <div class="Chartable-rule" style="top:120px">
+      </div>
+      <div class="Chartable-rule" style="top:70px">
+      </div>
+      <div class="Chartable-rule" style="top:20px">
+      </div>
+  </div>
+  <div class="Chartable-values">
+      <div class="Chartable-value" style="top:168.42105263157896px; left:14.285714285714285%;right:57.142857142857146%">
+          3
+      </div>
+      <div class="Chartable-value" style="top:168.42105263157896px; left:57.14285714285714%;right:14.285714285714292%">
+          3
+      </div>
+  </div>
+    <div class="Chartable-labels">
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:14.285714285714285%;right:57.142857142857146%">
+          Total
+        </div>
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:57.14285714285714%;right:14.285714285714292%">
+          Unique
+        </div>
+    </div>
+  <svg viewBox="0 0 384 240"
+    class="Chartable-svg"
+    width="384"
+    height="240"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+      <path class="Chartable-bar" d="M 54.857142857142854 220 v-31.57894736842105 h109.71428571428571 v31.57894736842105z"/>
+      <path class="Chartable-bar" d="M 219.42857142857142 220 v-31.57894736842105 h109.71428571428571 v31.57894736842105z"/>
+  </svg>
+
+</div>
+
+      <div class="h5 bold mt1">Color</div>
+    </div>
+    <div class="col-4 lg-col-2 mb4 center">
+      
+<div class="Chartable Chartable--bar-chart">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-bar {
+    }
+    .Chartable-rules,
+    .Chartable-values,
+    .Chartable-labels {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-value {
+      position: absolute;
+      text-align: center;
+    }
+    .Chartable-rule {
+      position: absolute;
+      text-align: left;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {
+      position: absolute;
+      text-align: center;
+    }
+  </style>
+  <div class="Chartable-rules">
+      <div class="Chartable-rule" style="top:220px">
+      </div>
+      <div class="Chartable-rule" style="top:170px">
+      </div>
+      <div class="Chartable-rule" style="top:120px">
+      </div>
+      <div class="Chartable-rule" style="top:70px">
+      </div>
+      <div class="Chartable-rule" style="top:20px">
+      </div>
+  </div>
+  <div class="Chartable-values">
+      <div class="Chartable-value" style="top:147.3684210526316px; left:14.285714285714285%;right:57.142857142857146%">
+          5
+      </div>
+      <div class="Chartable-value" style="top:147.3684210526316px; left:57.14285714285714%;right:14.285714285714292%">
+          5
+      </div>
+  </div>
+    <div class="Chartable-labels">
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:14.285714285714285%;right:57.142857142857146%">
+          Total
+        </div>
+        <div class="Chartable-label Chartable-label--x" style="top:220px;left:57.14285714285714%;right:14.285714285714292%">
+          Unique
+        </div>
+    </div>
+  <svg viewBox="0 0 384 240"
+    class="Chartable-svg"
+    width="384"
+    height="240"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+      <path class="Chartable-bar" d="M 54.857142857142854 220 v-52.63157894736842 h109.71428571428571 v52.63157894736842z"/>
+      <path class="Chartable-bar" d="M 219.42857142857142 220 v-52.63157894736842 h109.71428571428571 v52.63157894736842z"/>
+  </svg>
+
+</div>
+
+      <div class="h5 bold mt1">Background Color</div>
+    </div>
+  </div>
+</section>
+
+<section id="specificity-graph" class="mb4">
+  <h1 class="h2 mt0">Specificity Graph</h1>
+  
+<div class="Chartable Chartable--line-graph">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-line {
+      fill: none;
+    }
+    .Chartable-area {}
+    .Chartable-rules {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-rule {
+      position: absolute;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {}
+  </style>
+  <div class="Chartable-rules">
+      <div style="top:240px" class="Chartable-rule">
+        <div class="Chartable-label">25</div>
+      </div>
+      <div style="top:160px" class="Chartable-rule">
+        <div class="Chartable-label">50</div>
+      </div>
+      <div style="top:80px" class="Chartable-rule">
+        <div class="Chartable-label">75</div>
+      </div>
+      <div style="top:0px" class="Chartable-rule">
+        <div class="Chartable-label">100</div>
+      </div>
+  </div>
+  <svg viewBox="0 0 1152 320"
+    class="Chartable-svg"
+    width="1152"
+    height="320"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+    <path class="Chartable-area" d="M0 316.8 L 16.941176470588236 316.8 L 50.82352941176471 0 L 84.70588235294117 0 L 118.58823529411765 0 L 152.47058823529412 0 L 186.35294117647058 0 L 220.23529411764707 0 L 254.11764705882354 0 L 288 0 L 321.88235294117646 0 L 355.7647058823529 0 L 389.6470588235294 0 L 423.5294117647059 0 L 457.4117647058824 284.8 L 491.29411764705884 284.8 L 525.1764705882354 316.8 L 559.0588235294118 288 L 592.9411764705883 288 L 626.8235294117648 284.8 L 660.7058823529412 288 L 694.5882352941177 284.8 L 728.4705882352941 288 L 762.3529411764706 288 L 796.2352941176471 288 L 830.1176470588236 256 L 864.0000000000001 256 L 897.8823529411766 288 L 931.764705882353 316.8 L 965.6470588235295 316.8 L 999.529411764706 316.8 L 1033.4117647058824 316.8 L 1067.2941176470588 284.8 L 1101.1764705882354 288 L 1135.058823529412 316.8 H 1152 L 1152 320 0 320z"/>
+    <path class="Chartable-line" d="M0 316.8 L 16.941176470588236 316.8 L 50.82352941176471 0 L 84.70588235294117 0 L 118.58823529411765 0 L 152.47058823529412 0 L 186.35294117647058 0 L 220.23529411764707 0 L 254.11764705882354 0 L 288 0 L 321.88235294117646 0 L 355.7647058823529 0 L 389.6470588235294 0 L 423.5294117647059 0 L 457.4117647058824 284.8 L 491.29411764705884 284.8 L 525.1764705882354 316.8 L 559.0588235294118 288 L 592.9411764705883 288 L 626.8235294117648 284.8 L 660.7058823529412 288 L 694.5882352941177 284.8 L 728.4705882352941 288 L 762.3529411764706 288 L 796.2352941176471 288 L 830.1176470588236 256 L 864.0000000000001 256 L 897.8823529411766 288 L 931.764705882353 316.8 L 965.6470588235295 316.8 L 999.529411764706 316.8 L 1033.4117647058824 316.8 L 1067.2941176470588 284.8 L 1101.1764705882354 288 L 1135.058823529412 316.8 H 1152 "/>
+  </svg>
+</div>
+
+
+  <p>
+    Base 10 specificity score for each selector by source order.
+    Generally, lower scores and flatter curves are better for maintainability.
+    <a href="http://csswizardry.com/2014/10/the-specificity-graph/">Learn More</a>
+  </p>
+</section>
+
+<section id="rulesize-graph" class="mb4">
+  <h1 class="h2 mt0">Ruleset Size</h1>
+  
+<div class="Chartable Chartable--line-graph">
+  <style>
+    .Chartable {
+      position: relative;
+    }
+    .Chartable-svg {
+      position: relative;
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+    .Chartable-line {
+      fill: none;
+    }
+    .Chartable-area {}
+    .Chartable-rules {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .Chartable-rule {
+      position: absolute;
+      width: 100%;
+      border-top-width: 1px;
+      border-top-style: solid;
+    }
+    .Chartable-label {}
+  </style>
+  <div class="Chartable-rules">
+      <div style="top:240px" class="Chartable-rule">
+        <div class="Chartable-label">3</div>
+      </div>
+      <div style="top:160px" class="Chartable-rule">
+        <div class="Chartable-label">6</div>
+      </div>
+      <div style="top:80px" class="Chartable-rule">
+        <div class="Chartable-label">9</div>
+      </div>
+      <div style="top:0px" class="Chartable-rule">
+        <div class="Chartable-label">12</div>
+      </div>
+  </div>
+  <svg viewBox="0 0 1152 320"
+    class="Chartable-svg"
+    width="1152"
+    height="320"
+    preserveAspectRatio="none"
+    fill="currentcolor">
+    <path class="Chartable-area" d="M0 293.3333333333333 L 18 293.3333333333333 L 54 266.6666666666667 L 90 266.6666666666667 L 126 266.6666666666667 L 162 266.6666666666667 L 198 266.6666666666667 L 234 266.6666666666667 L 270 266.6666666666667 L 306 266.6666666666667 L 342 266.6666666666667 L 378 266.6666666666667 L 414 266.6666666666667 L 450 266.6666666666667 L 486 133.33333333333331 L 522 106.66666666666666 L 558 213.33333333333331 L 594 213.33333333333331 L 630 266.6666666666667 L 666 293.3333333333333 L 702 266.6666666666667 L 738 0 L 774 186.66666666666666 L 810 133.33333333333331 L 846 266.6666666666667 L 882 266.6666666666667 L 918 293.3333333333333 L 954 293.3333333333333 L 990 293.3333333333333 L 1026 293.3333333333333 L 1062 266.6666666666667 L 1098 293.3333333333333 L 1134 293.3333333333333 H 1152 L 1152 320 0 320z"/>
+    <path class="Chartable-line" d="M0 293.3333333333333 L 18 293.3333333333333 L 54 266.6666666666667 L 90 266.6666666666667 L 126 266.6666666666667 L 162 266.6666666666667 L 198 266.6666666666667 L 234 266.6666666666667 L 270 266.6666666666667 L 306 266.6666666666667 L 342 266.6666666666667 L 378 266.6666666666667 L 414 266.6666666666667 L 450 266.6666666666667 L 486 133.33333333333331 L 522 106.66666666666666 L 558 213.33333333333331 L 594 213.33333333333331 L 630 266.6666666666667 L 666 293.3333333333333 L 702 266.6666666666667 L 738 0 L 774 186.66666666666666 L 810 133.33333333333331 L 846 266.6666666666667 L 882 266.6666666666667 L 918 293.3333333333333 L 954 293.3333333333333 L 990 293.3333333333333 L 1026 293.3333333333333 L 1062 266.6666666666667 L 1098 293.3333333333333 L 1134 293.3333333333333 H 1152 "/>
+  </svg>
+</div>
+
+
+  <p>
+    Number of declarations per ruleset
+  </p>
+</section>
+
+<section id="media-queries" class="mb4">
+  <h1 class="h2 m0">
+    4
+    Media Queries
+  </h1>
+  <div class="flex flex-wrap mxn2">
+      <div class="h5 bold break-word col-6 sm-col-4 px2 mb2">
+        (min-device-width : 600px) and (max-device-width: 1024px) and (orientation: landscape)
+      </div>
+      <div class="h5 bold break-word col-6 sm-col-4 px2 mb2">
+        (min-device-width : 600px) and (max-device-width: 1024px) and (orientation: portrait)
+      </div>
+      <div class="h5 bold break-word col-6 sm-col-4 px2 mb2">
+        only screen and (min-device-width : 320px) and (max-device-width : 480px)
+      </div>
+      <div class="h5 bold break-word col-6 sm-col-4 px2 mb2">
+        screen and (max-width: 300px)
+      </div>
+  </div>
+</section>
+
+<section id="spacing-resets" class="mb4">
+  <h1 class="h2 m0">Spacing Resets</h1>
+  <div class="flex flex-wrap mxn2">
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Margin</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Margin Top</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Margin Right</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Margin Bottom</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Margin Left</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">&nbsp;</div>
+  </div>
+  <div class="flex flex-wrap mxn2">
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Padding</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Padding Top</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Padding Right</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Padding Bottom</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">
+      <h1 class="h0 lh1 m0">0</h1>
+      <p class="bold lh1 m0">Padding Left</p>
+    </div>
+    <div class="col-6 sm-col-4 lg-col-2 p2">&nbsp;</div>
+</section>
+
+<section id="raw-css" class="mb4 print-hide">
+  <h1 class="h2">
+    Raw CSS
+  </h1>
+    <ul class="list-reset">
+          <li class="h5">
+            1 style
+            tag
+          </li>
+    </ul>
+  <pre class="p2 rounded" style="max-height: 50vh; overflow: auto; -webkit-overflow-scrolling: touch;">
+    @<span class="hljs-keyword">media</span> (min-device-width : <span class="hljs-number">600px</span>) and (max-device-width: <span class="hljs-number">1024px</span>) and (orientation: landscape) {
+    <span class="hljs-selector-tag">body</span> {
+        <span class="hljs-attribute">zoom</span>: <span class="hljs-number">43%</span> <span class="hljs-meta">!important</span>;
+    }
+
+    <span class="hljs-selector-id">#header</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">700px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span> <span class="hljs-meta">!important</span>;
+    }
+
+    <span class="hljs-selector-id">#login</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+    }
+
+    <span class="hljs-selector-id">#signup</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+    }
+}
+
+@<span class="hljs-keyword">media</span> (min-device-width : <span class="hljs-number">600px</span>) and (max-device-width: <span class="hljs-number">1024px</span>) and (orientation: portrait) {
+    <span class="hljs-selector-id">#header</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">700px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">600px</span> <span class="hljs-meta">!important</span>;
+    }
+
+    <span class="hljs-selector-id">#login</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+    }
+
+    <span class="hljs-selector-id">#signup</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+    }
+}
+
+@<span class="hljs-keyword">media</span> only screen and (min-device-width : <span class="hljs-number">320px</span>) and (max-device-width : <span class="hljs-number">480px</span>) {
+    <span class="hljs-selector-id">#header</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">800px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">700px</span> <span class="hljs-meta">!important</span>;
+    }
+
+    <span class="hljs-selector-id">#login</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+    }
+
+    <span class="hljs-selector-id">#signup</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span> <span class="hljs-meta">!important</span>;
+    }
+}
+
+<span class="hljs-selector-id">#header</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">420px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">300px</span>;
+}
+
+<span class="hljs-selector-id">#login</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">250px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">250px</span>;
+}
+
+<span class="hljs-selector-id">#signup</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">250px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">250px</span>;
+}
+
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=text]</span>, <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=password]</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">10px</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">8px</span> <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">display</span>: inline-block;
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>;
+    <span class="hljs-attribute">box-sizing</span>: border-box;
+}
+
+<span class="hljs-selector-tag">button</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+    <span class="hljs-attribute">background-color</span>: green;
+    <span class="hljs-attribute">color</span>: white;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">14px</span> <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">8px</span> <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">border</span>: none;
+    <span class="hljs-attribute">cursor</span>: pointer;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+}
+
+<span class="hljs-selector-class">.cancelbtn</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+    <span class="hljs-attribute">width</span>: auto;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span> <span class="hljs-number">18px</span>;
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f44336</span>;
+}
+
+<span class="hljs-selector-class">.imgcontainer</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+    <span class="hljs-attribute">text-align</span>: center;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">24px</span> <span class="hljs-number">0</span> <span class="hljs-number">12px</span> <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">position</span>: relative;
+}
+
+<span class="hljs-selector-tag">img</span><span class="hljs-selector-class">.avatar</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">200px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;
+}
+
+<span class="hljs-selector-class">.container</span> {
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+}
+
+<span class="hljs-selector-tag">span</span><span class="hljs-selector-class">.psw</span> {
+    <span class="hljs-attribute">float</span>: right;
+    <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">10px</span>;
+}
+
+<span class="hljs-selector-class">.modal</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+    <span class="hljs-attribute">display</span>: none;
+    <span class="hljs-attribute">position</span>: fixed;
+    <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">overflow</span>: auto;
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgb</span>(0,0,0);
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(0,0,0,0.4);
+    <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">20px</span>;
+}
+
+<span class="hljs-selector-class">.modal-content</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fefefe</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">5%</span> auto <span class="hljs-number">15%</span> auto;
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#888</span>;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">32%</span>;
+}
+
+<span class="hljs-selector-class">.close</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">right</span>: <span class="hljs-number">25px</span>;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">35px</span>;
+    <span class="hljs-attribute">font-weight</span>: bold;
+}
+
+<span class="hljs-selector-class">.close</span><span class="hljs-selector-pseudo">:hover</span>,
+    <span class="hljs-selector-class">.close</span><span class="hljs-selector-pseudo">:focus</span> {
+    <span class="hljs-attribute">color</span>: red;
+    <span class="hljs-attribute">cursor</span>: pointer;
+}
+
+<span class="hljs-selector-class">.animate</span> {
+    <span class="hljs-attribute">-webkit-animation</span>: animatezoom <span class="hljs-number">0.6s</span>;
+    <span class="hljs-attribute">animation</span>: animatezoom <span class="hljs-number">0.6s</span>
+}
+
+@-<span class="hljs-keyword">webkit</span>-<span class="hljs-keyword">keyframes</span> animatezoom {
+    <span class="hljs-selector-tag">from</span> {
+        <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">scale</span>(0)
+    }
+
+    <span class="hljs-selector-tag">to</span> {
+        <span class="hljs-attribute">-webkit-transform</span>: <span class="hljs-built_in">scale</span>(1)
+    }
+}
+
+@<span class="hljs-keyword">keyframes</span> animatezoom {
+    <span class="hljs-selector-tag">from</span> {
+        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(0)
+    }
+
+    <span class="hljs-selector-tag">to</span> {
+        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(1)
+    }
+}
+
+@<span class="hljs-keyword">media</span> screen and (max-width: <span class="hljs-number">300px</span>) {
+    <span class="hljs-selector-tag">span</span><span class="hljs-selector-class">.psw</span> {
+        <span class="hljs-attribute">display</span>: block;
+        <span class="hljs-attribute">float</span>: none;
+    }
+
+    <span class="hljs-selector-class">.cancelbtn</span> {
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    }
+}
+
+<span class="hljs-selector-tag">h2</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Helvetica Neue"</span>, Helvetica, Arial, sans-serif;
+}
+
+  </pre>
+</section>
+
+    </div>
+  </main>
+
+  <footer class="px2">
+    <div class="flex flex-center container py3 border-top">
+      <p class="h5 m0">
+        Made by
+        <a href="http://mrmrs.cc" class="bold dark-gray">Mrmrs</a>,
+        <a href="http://jxnblk.com" class="bold dark-gray">Jxnblk</a>,
+        &
+        <a href="http://johnotander.com" class="bold dark-gray">Johno</a>
+      </p>
+      <div class="flex-grow"></div>
+      <a href="https://github.com/mrmrs/cssstats" class="h5 button text-link print-hide">GitHub</a>
+      <a href="https://github.com/mrmrs/cssstats/issues" class="h5 button text-link print-hide">Issues</a>
+    </div>
+  </footer>
+
+
+</body>
+</html>
+
