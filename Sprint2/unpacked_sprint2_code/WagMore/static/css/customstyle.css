@@ -1,0 +1,11 @@
+body {
+    background-color: #ffffff;
+    width: 500px;
+    margin: auto;
+    padding: 10px;
+}
+     .important {color:purple; text-align:center;}
+     .regular {color:black; text-align:center;}
+     .mybox {background-color: plum;}
+     .mybox p {color: black}
+     #specialthanks {background-color: lightgreen}
