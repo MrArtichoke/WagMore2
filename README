@@ -9,8 +9,8 @@ in CMPS 115. It works on mobile; however, it doesn't look very good, so we are g
 Some things I want to add:
 
 1. Mobile layout cleanliness
-2. A gift shop and EXP point system
-3. An option for everyone that uses the app to add to a story line (this will also get them EXP points)
+2. A gift shop and inventory
+3. An option for everyone that uses the app to post on a forum
 4. More emojis
 5. I am open to more suggestions
 
@@ -21,7 +21,7 @@ That is all so far. Feel free to email me at vdellamo@ucsc.edu if you need more 
 
 I will be creating a Slack account soon for our group!
 
-Current wokring version with Sprint1 & Sprint2 updates: https://wagmore.pythonanywhere.com/WagMore
+Current working version with Sprint1 & Sprint2 updates: https://wagmore.pythonanywhere.com/WagMore
 
 Sprint 1 Plan: https://docs.google.com/a/ucsc.edu/document/d/1zre8G3f8v5MC4mAChLQiuraLShj1BWi8MQ9hKuywUHE/edit?usp=sharing
 
