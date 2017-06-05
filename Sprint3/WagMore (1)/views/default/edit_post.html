@@ -1,0 +1,52 @@
+<style>
+    #title{
+        float:left;
+    }
+    #header{
+        display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    body {
+        background: #edf7fb;
+    }
+</style>
+        <head>
+    <title>Add Post</title>
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+</head>
+{{if request.args(0) is None:}}
+<div id="header">
+            <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+            <div id="title">
+                <h1>Add a post</h1>
+            </div>
+</div>
+{{else:}}
+
+<div id="header">
+            <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+            <div id="title">
+                <h1>Edit Your Post</h1>
+            </div>
+</div>
+        {{pass}}
+
+<html>
+<center>
+<div>
+
+    {{=form}}
+
+
+    <a href="{{=URL('default', 'forum')}}" class="btn btn-warning"><button>Cancel</button></a>
+    </div>
+    </center>
+</html>

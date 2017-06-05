@@ -1,0 +1,400 @@
+# -*- coding: utf-8 -*-
+
+# -------------------------------------------------------------------------
+# This scaffolding model makes your app work on Google App Engine too
+# File is released under public domain and you can use without limitations
+# -------------------------------------------------------------------------
+
+if request.global_settings.web2py_version < "2.14.1":
+    raise HTTP(500, "Requires web2py 2.13.3 or newer")
+
+# -------------------------------------------------------------------------
+# if SSL/HTTPS is properly configured and you want all HTTP requests to
+# be redirected to HTTPS, uncomment the line below:
+# -------------------------------------------------------------------------
+# request.requires_https()
+
+# -------------------------------------------------------------------------
+# app configuration made easy. Look inside private/appconfig.ini
+# -------------------------------------------------------------------------
+from gluon.contrib.appconfig import AppConfig
+
+# -------------------------------------------------------------------------
+# once in production, remove reload=True to gain full speed
+# -------------------------------------------------------------------------
+myconf = AppConfig(reload=True)
+
+if not request.env.web2py_runtime_gae:
+    # ---------------------------------------------------------------------
+    # if NOT running on Google App Engine use SQLite or other DB
+    # ---------------------------------------------------------------------
+    #db = DAL(myconf.get('db.uri'),
+	db = DAL(myconf.get('db.uri'),
+             pool_size=myconf.get('db.pool_size'),
+             migrate_enabled=myconf.get('db.migrate'),
+             check_reserved=['all'])
+else:
+    # ---------------------------------------------------------------------
+    # connect to Google BigTable (optional 'google:datastore://namespace')
+    # ---------------------------------------------------------------------
+    db = DAL('google:datastore+ndb')
+    # ---------------------------------------------------------------------
+    # store sessions and tickets there
+    # ---------------------------------------------------------------------
+    session.connect(request, response, db=db)
+    # ---------------------------------------------------------------------
+    # or store session in Memcache, Redis, etc.
+    # from gluon.contrib.memdb import MEMDB
+    # from google.appengine.api.memcache import Client
+    # session.connect(request, response, db = MEMDB(Client()))
+    # ---------------------------------------------------------------------
+
+# -------------------------------------------------------------------------
+# by default give a view/generic.extension to all actions from localhost
+# none otherwise. a pattern can be 'controller/function.extension'
+# -------------------------------------------------------------------------
+response.generic_patterns = ['*'] if request.is_local else []
+# -------------------------------------------------------------------------
+# choose a style for forms
+# -------------------------------------------------------------------------
+response.formstyle = myconf.get('forms.formstyle')  # or 'bootstrap3_stacked' or 'bootstrap2' or other
+response.form_label_separator = myconf.get('forms.separator') or ''
+
+# -------------------------------------------------------------------------
+# (optional) optimize handling of static files
+# -------------------------------------------------------------------------
+# response.optimize_css = 'concat,minify,inline'
+# response.optimize_js = 'concat,minify,inline'
+
+# -------------------------------------------------------------------------
+# (optional) static assets folder versioning
+# -------------------------------------------------------------------------
+# response.static_version = '0.0.0'
+
+# -------------------------------------------------------------------------
+# Here is sample code if you need for
+# - email capabilities
+# - authentication (registration, login, logout, ... )
+# - authorization (role based authorization)
+# - services (xml, csv, json, xmlrpc, jsonrpc, amf, rss)
+# - old style crud actions
+# (more options discussed in gluon/tools.py)
+# -------------------------------------------------------------------------
+
+from gluon.tools import Auth, Service, PluginManager, Mail, Crud, prettydate
+from datetime import datetime
+
+# host names must be a list of allowed host names (glob syntax allowed)
+auth = Auth(db, host_names=myconf.get('host.names'))
+service = Service()
+plugins = PluginManager()
+crud = Crud(db)
+
+# -------------------------------------------------------------------------
+# create all tables needed by auth if not custom tables
+# -------------------------------------------------------------------------
+auth.define_tables(signature=False)
+
+# -------------------------------------------------------------------------
+# configure email
+# -------------------------------------------------------------------------
+mail = auth.settings.mailer
+mail.settings.server = 'logging' if request.is_local else myconf.get('smtp.server')
+mail.settings.sender = myconf.get('smtp.sender')
+mail.settings.login = myconf.get('smtp.login')
+mail.settings.tls = myconf.get('smtp.tls') or False
+mail.settings.ssl = myconf.get('smtp.ssl') or False
+
+# -------------------------------------------------------------------------
+# configure auth policy
+# -------------------------------------------------------------------------
+auth.settings.registration_requires_verification = False
+auth.settings.registration_requires_approval = False
+auth.settings.reset_password_requires_verification = True
+
+# -------------------------------------------------------------------------
+# Define your tables below (or better in another model file) for example
+#
+# >>> db.define_table('mytable', Field('myfield', 'string'))
+#
+# Fields can be 'string','text','password','integer','double','boolean'
+#       'date','time','datetime','blob','upload', 'reference TABLENAME'
+# There is an implicit 'id integer autoincrement' field
+# Consult manual for more options, validators, etc.
+#
+# More API examples for controllers:
+#
+# >>> db.mytable.insert(myfield='value')
+# >>> rows = db(db.mytable.myfield == 'value').select(db.mytable.ALL)
+# >>> for row in rows: print row.id, row.myfield
+# -------------------------------------------------------------------------
+
+db.define_table('profile',
+                Field('name'),
+                Field('gender', requires=IS_IN_SET(['Male', 'Female'])),
+                Field('birthDate','date', requires = IS_DATE(format='%Y-%m-%d',
+                     error_message='must be YYYY-MM-DD!')),
+                Field('city'),
+                Field('interest', requires=IS_IN_SET(['Man', 'Woman', 'Friendship'])),
+                Field('bio', type='text'),
+                Field('dogName', requires=IS_NOT_EMPTY()),
+                Field('dogGender', requires=IS_IN_SET(['Male', 'Female', 'Other'])),
+                Field('dogAge','integer',  requires = IS_INT_IN_RANGE(0, 20,
+                     error_message='Dog\'s age not possible!')),
+                Field('dogBio', type='text'),
+                Field('locationLong'),
+                Field('locationLat' ),
+                Field('interestMask', type='text',readable=False),
+                Field('adventurous', 'integer'),
+                Field('bubbly', 'integer'),
+                Field('confident', 'integer'),
+                Field('conservative', 'integer'),
+                Field('creative', 'integer'),
+                Field('fiery', 'integer'),
+                Field('goofy', 'integer'),
+                Field('intellectual', 'integer'),
+                Field('introverted', 'integer'),
+                Field('openness', 'integer'),
+                Field('spontaneity', 'integer'),
+                Field('commonPawCoin', 'integer', default=1),   #rewards: (CC = common coin, UC = uncommon coin, RC = rare coin)
+                Field('dogHat', 'integer', default=0),                #cost: 5CC, 1UC, 1RC
+                Field('dogHat2', 'integer', default=0),               #cost: 5CC, 1UC, 1RC
+                Field('dogHouseUltimate', 'integer', default=0),      #cost: 100CC, 50UC, 30RC
+                Field('dogBone', 'integer', default=0),               #cost: 5CC
+                Field('dogBoneBacon', 'integer', default=0),          #cost: 5CC, 1UC
+                Field('dogBoneCheese', 'integer', default=0),         #cost: 5CC, 1UC
+                Field('rubberDuck', 'integer', default=0),            #cost: 6UC, 2RC
+                Field('rarePawCoin', 'integer', default=1),
+                Field('squeakyBall', 'integer', default=0),           #cost: 7UC, 3RC
+                Field('teddyBear', 'integer', default=0),             #cost: 10CC, 5UC, 3RC
+                Field('uncommonPawCoin', 'integer', default=1),
+                Field('rewards', 'list:integer'),
+                Field('dateJoined', 'date', default = request.now, requires = IS_DATE(format=('%Y-%m-%d'))),
+                Field('dateLoggedin', 'date', default = request.now, requires = IS_DATE(format=('%Y-%m-%d')))
+               )
+db.profile.id.writable = db.profile.id.readable = False
+db.profile.name.writable = False
+db.profile.locationLat.writable = False
+db.profile.locationLong.writable = False
+db.profile.dateJoined.writable = False
+db.profile.dateLoggedin.writable = False
+db.profile.commonPawCoin.writable = db.profile.commonPawCoin.readable = False
+db.profile.uncommonPawCoin.writable = False
+db.profile.rarePawCoin.writable = False
+
+
+
+db.define_table('images',
+                Field('profilePic', 'upload', requires=IS_NOT_EMPTY()),
+                Field('profilePicDog', 'upload', requires=IS_NOT_EMPTY()),
+                Field('picture1', 'upload'),
+                Field('picture2', 'upload'),
+                Field('picture3', 'upload'),
+                Field('videos','upload'))
+db.images.id.writable = db.images.id.readable = False
+
+
+## this table is used for when the user selects images to be added to his/her image collage.
+## the user can select a MAX of 2 images (MAX of 2 items from each field: ex, Tacos and Salad from food)
+
+##Defines Food Interests
+db.define_table(
+    'interestFood',
+    Field('Tacos', 'boolean', default=False),
+    Field('Salad', 'boolean', default=False),
+    Field('Cheeseburger', 'boolean', default=False),
+    Field('Pizza', 'boolean', default=False),
+    Field('Sushi', 'boolean', default=False),
+    Field('Breakfast', 'boolean', default=False))
+db.interestFood.id.writable = db.interestFood.id.readable = False
+
+##Defines Activites Interests
+db.define_table(
+    'interestActivities',
+    Field('Hicking', 'boolean', default=False),
+    Field('Partying', 'boolean', default=False),
+    Field('Working_Out', 'boolean', default=False),
+    Field('Travel', 'boolean', default=False),
+    Field('Reading', 'boolean', default=False),
+    Field('Skydiving', 'boolean', default=False))
+db.interestActivities.id.writable = db.interestActivities.id.readable = False
+
+
+##Defines Hobbies Interests
+db.define_table(
+    'interestHobbies',
+    Field('Games', 'boolean', default=False),
+    Field('Sciences', 'boolean', default=False),
+    Field('Art', 'boolean', default=False),
+    Field('Movies', 'boolean', default=False),
+    Field('Cooking', 'boolean', default=False),
+    Field('Guitar', 'boolean', default=False))
+db.interestHobbies.id.writable = db.interestHobbies.id.readable = False
+
+
+##Defines Place Interests
+db.define_table(
+    'interestPlaces',
+    Field('Beach', 'boolean', default=False),
+    Field('Woods', 'boolean', default=False),
+    Field('Library', 'boolean', default=False),
+    Field('Concert', 'boolean', default=False),
+    Field('WorldMap', 'boolean', default=False),
+    Field('HomeWithDog', 'boolean', default=False))
+db.interestPlaces.id.writable = db.interestPlaces.id.readable = False
+
+##Defines Sports Interests
+db.define_table(
+    'interestSports',
+    Field('Tennis', 'boolean', default=False),
+    Field('RunningJogging', 'boolean', default=False),
+    Field('Football', 'boolean', default=False),
+    Field('Soccer', 'boolean', default=False),
+    Field('Basketball', 'boolean', default=False),
+    Field('Chess', 'boolean', default=False))
+db.interestSports.id.writable = db.interestSports.id.readable = False
+
+db.define_table(
+	'personalities',
+	Field('id'),
+	Field('adventurous', 'integer', default=0),
+	Field('bubbly', 'integer', default=0),
+	Field('confident', 'integer', default=0),
+	Field('conservative', 'integer', default=0),
+	Field('creative', 'integer', default=0),
+	Field('fiery', 'integer', default=0),
+	Field('goofy', 'integer', default=0),
+	Field('intellectual', 'integer', default=0),
+	Field('introverted', 'integer', default=0),
+	Field('openness', 'integer', default=0),
+	Field('spontaneity', 'integer', default=0)
+)
+
+db.define_table(
+    'question1',
+    Field('q1', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['Get ready for a weekend of travel', 'Go dancing', 'Read a book and stay in (with my pup!)', 'Something creative (painting, drawing, writing)'])),
+    Field('q2', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['Comedy', 'Drama', 'Science fiction/fantasy', 'Animated'])),
+    Field('q3', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['Definitely!', 'Mostly', 'Sometimes', 'Not really'])),
+    Field('q4', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['A professional clown', 'A lion tamer', 'A hot-air balloon operator', 'An artist'])),
+    Field('q5', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['Art', 'Science', 'Computer science/math', 'Humanities']))
+)
+db.question1.id.writable = db.question1.id.readable = False
+
+db.define_table(
+    'question2',
+    Field('q6', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['To fly', 'To turn invisible', 'To read minds', 'To talk to animals'])),
+    Field('q7', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['Meet locals and practice the languages', 'Go to a museum', 'Try the food and cuisine', 'I have not traveled to a foreign country'])),
+    Field('q8', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['Playful', 'Strict', 'Reserved', 'Energetic'])),
+    Field('q9', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['Charlie Brown', 'Buzz Lightyear', 'Mulan', 'Dory'])),
+    Field('q10', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['German Shepherd', 'Pug', 'Labrador Retriever', 'Poodle']))
+)
+db.question2.id.writable = db.question2.id.readable = False
+
+db.define_table(
+    'question3',
+    Field('q11', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q12', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q13', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q14', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q15', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False']))
+    )
+db.question3.id.writable = db.question3.id.readable = False
+
+db.define_table(
+    'question4',
+    Field('q16', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q17', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q18', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q19', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q20', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False'])),
+    Field('q21', 'string', widget=SQLFORM.widgets.radio.widget, requires=IS_IN_SET(['True', 'False']))
+)
+db.question4.id.writable = db.question4.id.readable = False
+
+db.define_table(
+    'matchTable',
+    Field('images_id', 'reference images'),
+    Field('idFromMatch', 'integer'),
+    Field('idToMatch', 'reference profile'),
+    Field('percentage', 'integer'),
+    Field('distance', 'integer'),
+    Field('blocked', 'boolean', default=False)
+)
+
+db.matchTable.images_id.writable = db.matchTable.images_id.readable = False
+db.matchTable.idToMatch.writable = db.matchTable.idToMatch.readable = False
+
+
+# -------------------------------------------------------------------------
+# after defining tables, uncomment below to enable auditing
+# -------------------------------------------------------------------------
+# auth.enable_record_versioning(db)
+
+db.define_table('post',
+                Field('item_id', 'reference matchTable'),
+                Field('fromid'),
+                Field('toid'),
+                Field('author'),
+                Field('timesent', 'datetime', default=request.now, readable=False, writable=False),
+                Field('opened', 'boolean', writable=False, readable=False, default=False),
+                Field('body', 'text', label='Comment'))
+
+db.define_table('inventory',
+                Field('id'),
+                Field('commonPawCoin', 'integer', default=0),
+                Field('dogHat', 'integer', default=0),
+                Field('dogHat2', 'integer', default=0),
+                Field('dogHouseUltimate', 'integer', default=0),
+                Field('dogBone', 'integer', default=0),
+                Field('dogBoneBacon', 'integer', default=0),
+                Field('dogBoneCheese', 'integer', default=0),
+                Field('rubberDuck', 'integer', default=0),
+                Field('rarePawCoin', 'integer', default=0),
+                Field('squeakyBall', 'integer', default=0),
+                Field('teddyBear', 'integer', default=0),
+                Field('uncommonPawCoin', 'integer', default=0))
+
+db.post.author.writable = False
+db.post.body.requires = IS_NOT_EMPTY()
+db.post.toid.writable = db.post.toid.readable = False
+
+db.post.item_id.writable = db.post.item_id.readable = False
+db.post.fromid.writable = db.post.fromid.readable = False
+
+import datetime
+
+db.define_table('forum_post',
+                Field('user_id', 'reference auth_user', default=auth.user_id),
+                Field('votes', 'integer', default=0),
+                Field('post_subject'),
+                Field('post_content', 'text'),
+                Field('created_on', 'datetime', default=datetime.datetime.utcnow()),
+                Field('updated_on', 'datetime', update=datetime.datetime.utcnow()),
+                )
+
+db.forum_post.user_id.readable = db.forum_post.user_id.writable = False
+db.forum_post.post_subject.requires = IS_NOT_EMPTY()
+db.forum_post.post_content.requires = IS_NOT_EMPTY()
+db.forum_post.votes.readable = db.forum_post.votes.writable = False
+db.forum_post.created_on.writable = db.forum_post.created_on.readable =False
+db.forum_post.updated_on.writable = db.forum_post.updated_on.readable = False
+
+db.define_table('comm',
+                Field('user_id', 'reference auth_user', default=auth.user_id),
+                Field('belongs_to',),
+                Field('author', ),
+                Field('body', 'text'))
+db.comm.user_id.readable = db.comm.user_id.writable = False
+
+db.comm.belongs_to.requires = IS_IN_DB(db, db.forum_post.id)
+db.comm.author.writable = False
+db.comm.body.requires = IS_NOT_EMPTY()
+db.comm.belongs_to.writable = db.comm.belongs_to.readable = False
+
+db.define_table('votes',
+                Field('forum_post'),
+                Field('voter', default=auth.user_id),
+                Field('upvote', 'boolean', default=False),
+                Field('downvote', 'boolean', default=False))
+db.votes.forum_post.requires = IS_IN_DB(db, db.forum_post.id)
+db.votes.voter.requires = IS_IN_DB(db,db.auth_user)

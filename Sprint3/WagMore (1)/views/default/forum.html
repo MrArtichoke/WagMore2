@@ -1,0 +1,121 @@
+<head>
+<style>
+    body {
+        background: #edf7fb;
+    }
+    #title{
+        display: flex;
+        margin: auto;
+    }
+     #myProfile{
+    }
+
+    #header{
+        display: flex;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        justify-content: space-between;
+    }
+    .img-circle {
+        border-radius: 50%;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding:0;
+    }
+
+    .post-single {
+
+        border: solid darkblue;
+        border-radius: 10%;
+        background:transparent;
+        margin: 20px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .test{
+        float: left;
+    }
+    .post-title {
+        font-size: xx-large;
+    }
+
+    .post-control {
+        display: flex;
+    }
+
+    .new-post-container {
+        text-align:center;
+    }
+</style>
+    <title>Forums</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+</head>
+<div id="header">
+    <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+        <h1 id="title">Hey, {{=auth.user.first_name}}, here you can post.</h1>
+    <img id="myProfile" src="{{=URL('static', 'images/buttonMyprofile.png')}}" width="150" height="152" alt="My profile" onclick="location.href='{{=URL('default', 'show', args=[auth.user.id,-1])}}'">
+</div>
+<div class="post-control">
+        <a href="{{=URL('default', 'forum')}}" class="btn btn-warning"><button class="sort-post-recent"><i class="fa fa-clock-o "></i>Sort by recent</button> </a>
+        <a href="{{=URL('default', 'forum', args=['top'])}}" class="btn btn-warning"><button class="sort-post-votes"><i class="fa fa-arrow-up"></i>Top voted</button> </a>
+</div>
+<div class="new-post-container">
+        <a href="{{=URL('default', 'edit_post')}}" class="btn btn-warning"><button class="new-post"><i class="fa fa-plus"></i> New Post</button></a>
+</div>
+{{for post in posts:}}
+    <div class="post-single">
+        <div class="test">
+            {{picture =db(db.images.id==db.auth_user[post.user_id].id).select().first()}}
+            {{if (picture == None) or (len(picture.profilePic) == 0):}}
+              <img width="100%" height="100%"  src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+            {{else:}}
+                      {{if db.auth_user[post.user_id].id in idToMatch:}}
+              <img class="img-circle" width="90px" height="80px"
+                   src="{{=URL('download', args=picture.profilePic)}}"
+                   onClick='window.location="{{=URL('show',args=[db.auth_user[post.user_id].id,db(db.matchTable.idToMatch == db.auth_user[post.user_id].id).select(db.matchTable.id).first().id])}}";'/>
+                 {{else:}}
+                <img class="img-circle" width="90px" height="80px"
+                   src="{{=URL('download', args=picture.profilePic)}}">
+                {{pass}}
+
+            {{pass}}
+        </div>
+        <div class="vote">
+            {{user_vote = db((db.votes.voter == auth.user_id) & (db.votes.forum_post == post.id)).select()}}
+                {{if user_vote:}}
+                    {{if user_vote.first().upvote:}}
+                        <a href="{{=URL('default', 'upvote', args=[post.id])}}"><i class="fa fa-thumbs-o-up" aria-hidden="true" style="color:gold"></i></a>
+                    {{else:}}
+                        <a href="{{=URL('default', 'upvote', args=[post.id])}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                    {{pass}}
+                    <span>{{=post.votes}}</span>
+                    {{if user_vote.first().downvote:}}
+                        <a href="{{=URL('default', 'downvote', args= [post.id])}}"><i class="fa fa-thumbs-o-down" aria-hidden="true" style="color:red"></i></a>
+                    {{else:}}
+                        <a href="{{=URL('default', 'downvote', args= [post.id])}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                    {{pass}}
+                {{else:}}
+                    <a href="{{=URL('default', 'upvote', args=[post.id])}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                    <span>{{=post.votes}}</span>
+                    <a href="{{=URL('default', 'downvote', args= [post.id])}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                {{pass}}
+        </div>
+        <a href="{{=URL('default', 'post_show', args=[post.id])}}" class="post-title">{{=post.post_subject}}</a><br>
+        {{if db.auth_user[post.user_id].id in idToMatch:}}
+        <span>by: <a href="{{=URL('show',args=[db.auth_user[post.user_id].id,db(db.matchTable.idToMatch == db.auth_user[post.user_id].id).select(db.matchTable.id).first().id])}}">{{=db.auth_user[post.user_id].first_name}}</a></span>
+        {{else:}}
+        <span>by: {{=db.auth_user[post.user_id].first_name}}</span>
+        {{pass}}
+        <span>{{=post.created_on}}</span>
+        {{if post.created_on!=post.updated_on:}}
+        {{pass}}
+        {{if post.user_id==auth.user_id:}}
+            <a href="{{=URL('default', 'edit_post', args=[post.id])}}" class="editicon"><i class="fa fa-pencil-square-o"></i></a>
+        {{pass}}
+    </div>
+{{pass}}

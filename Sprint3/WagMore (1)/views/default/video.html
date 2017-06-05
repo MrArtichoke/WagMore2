@@ -1,0 +1,47 @@
+<style>
+    #title{
+        float:left;
+    }
+    #header{
+        display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+</style>
+
+<head>
+    <title>Video</title>
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+</head>
+
+<div id="header">
+            <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+            <div id="title">
+                <h1>Edit your Video!</h1>
+            </div>
+</div>
+
+        <center>
+{{if (images == None) or ( images.videos != None and len(images.videos) == 0):}}
+            <img width="300" height="300" src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+{{else:}}
+            <h1><video src="{{=URL('download', args=images.videos)}}"  width="300" height="300" controls  ></h1>
+{{pass}}
+ {{=form.custom.begin}}
+
+{{=form.custom.widget.videos}}
+
+
+<div id="info">
+		 <input type="image" alt="Error" src="{{=URL('static', 'images/backButton.png')}}", height="150px">
+
+		<input type="image" alt="Error" src="{{=URL('static', 'images/nextButton.png')}}", height="150px">
+        {{=form.custom.end}}
+	</div></center>

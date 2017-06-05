@@ -1,0 +1,277 @@
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 0;
+    background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+}
+
+.shopping-cart {
+  width: 750px;
+  height: 423px;
+  margin: 80px auto;
+  background: #2ab0ed;
+  box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  height: 60px;
+  border-bottom: 1px solid #E1E8EE;
+  padding: 20px 30px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.item {
+  padding: 20px 30px;
+  height: 120px;
+  display: flex;
+}
+
+.item:nth-child(3) {
+  border-top:  1px solid #E1E8EE;
+  border-bottom:  1px solid #E1E8EE;
+}
+
+
+
+
+
+@keyframes animate {
+  0%   { background-position: left;  }
+  50%  { background-position: right; }
+  100% { background-position: right; }
+}
+
+/* Product Image */
+.image {
+  margin-right: 50px;
+}
+
+/* Product Description */
+.description {
+  padding-top: 10px;
+  margin-right: 60px;
+  width: 115px;
+}
+
+.description span {
+  display: block;
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.description span:first-child {
+  margin-bottom: 5px;
+}
+.description span:last-child {
+  font-weight: 300;
+  margin-top: 8px;
+  color: #ffffff;
+}
+
+/* Product Quantity */
+.quantity {
+  padding-top: 20px;
+  margin-right: 60px;
+}
+.quantity input {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  width: 32px;
+  font-size: 16px;
+  color: #43484D;
+  font-weight: 300;
+}
+
+button[class*=btn] {
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.plus-btn img {
+  margin-top: 2px;
+}
+button:focus,
+input:focus {
+  outline:0;
+}
+
+/* Total Price */
+.total-price {
+  width: 83px;
+  padding-top: 27px;
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .shopping-cart {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  .item {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .image img {
+    width: 50%;
+  }
+  .image,
+  .quantity,
+  .description {
+    width: 100%;
+    text-align: center;
+    margin: 6px 0;
+  }
+  .buttons {
+    margin-right: 20px;
+  }
+}
+
+</style>
+
+<body>
+<!DOCTYPE html>
+<html>
+      <head>
+    <title>Store</title>
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <script src="https://code.jquery.com/jquery-2.2.4.js" charset="utf-8"></script>
+</head>
+      <div id="header">
+        <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+      </div>
+  <body>
+    <div class="shopping-cart">
+      <!-- Title -->
+      <div class="title">
+        WagMore Merchandise
+      </div>
+
+      <!-- Product #1 -->
+      <div class="item">
+        <div class="image">
+          <img src="{{=URL('static', 'images/dogHat.png')}}" width="100" height="90" alt="" />
+        </div>
+
+        <div class="description">
+          <span>Dog Hat</span>
+
+        </div>
+
+       <div class="quantity">
+            <button class="fa fa-minus" type="button" name="button">
+          </button>
+          <input type="text" name="name" value="0">
+          <button class="fa fa-plus" type="button" name="button">
+          </button>
+        </div>
+
+
+        <div class="total-price">1 coin</div>
+      </div>
+
+      <!-- Product #2 -->
+      <div class="item">
+        <div class="image">
+        <img src="{{=URL('static', 'images/dogHat2.png')}}" width="100" height="90" alt="" />        </div>
+
+        <div class="description">
+          <span>Dog Hat v2</span>
+        </div>
+<div class="quantity">
+            <button class="fa fa-minus" type="button" name="button">
+          </button>
+          <input type="text" name="name" value="0">
+          <button class="fa fa-plus" type="button" name="button">
+          </button>
+        </div>
+
+
+
+        <div class="total-price">2 coins</div>
+      </div>
+
+      <!-- Product #3 -->
+      <div class="item">
+        <div class="image">
+            <img src="{{=URL('static', 'images/dogHouseULTIMATEGIFT.png')}}" width="100" height="90" alt="" />        </div>
+
+        <div class="description">
+          <span>Dog House</span>
+
+        </div>
+
+        <div class="quantity">
+            <button class="fa fa-minus" type="button" name="button">
+          </button>
+          <input type="text" name="name" value="0">
+          <button class="fa fa-plus" type="button" name="button">
+          </button>
+        </div>
+
+
+        <div class="total-price">3 coins</div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $('.fa-minus').on('click', function(e) {
+    		e.preventDefault();
+    		var $this = $(this);
+    		var $input = $this.closest('div').find('input');
+    		var value = parseInt($input.val());
+
+    		if (value > 1) {
+    			value = value - 1;
+    		} else {
+    			value = 0;
+    		}
+
+        $input.val(value);
+
+    	});
+
+    	$('.fa-plus').on('click', function(e) {
+    		e.preventDefault();
+    		var $this = $(this);
+    		var $input = $this.closest('div').find('input');
+    		var value = parseInt($input.val());
+
+    		if (value < 100) {
+      		value = value + 1;
+    		} else {
+    			value =100;
+    		}
+
+    		$input.val(value);
+    	});
+
+    </script>
+  </body>
+</html>

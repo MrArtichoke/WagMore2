@@ -1,0 +1,215 @@
+<html>
+<head>
+<style>
+    .post-container {
+        border: solid black;
+        border-radius: 10%;
+        word-break: break-all;
+        opacity:.65;
+        background: linear-gradient(to bottom, #f5f6f6 0%,#dbdce2 21%,#b8bac6 49%,#dddfe3 80%,#f5f6f6 100%);
+        border-radius:5px;
+        margin: 20px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .single-comment {
+        border: solid lightblue;
+                border-radius: 10%;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 100%);
+        margin: 10px;
+        left: 10px;
+
+    }
+    .test{
+         position:absolute;
+        right: 10px !important;
+        cursor: pointer;
+        margin-top: -100px;
+        zoom: 110% !important;
+    }
+
+     #header{
+        display: flex;
+        justify-content: center;
+        height:115px;
+        background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%); /* FF3.6-15 */
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    #flying_puppy{
+        position: absolute;
+        left: 130px;
+        top: 10px;
+    }
+    body {
+        background: linear-gradient(to bottom, #d6f9ff 0%,#9ee8fa 91%);
+        font-family:"Trebuchet MS", Helvetica, sans-serif ;
+    }
+    .vote{
+        float:right;
+    }
+
+     .post-title {
+        font-size: xx-large;
+    }
+     .img-circle {
+        border-radius: 50%;
+    }
+
+    #pug_gif{
+        margin-left:400px;
+       margin-top:-100px;
+    }
+    #logo2{
+         position: absolute;
+        left: 170px;
+        top: 10px;
+    }
+</style>
+</head>
+
+<head>
+        <title>{{=db.auth_user[post.user_id].first_name}} Post!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="{{=URL('static', 'images/title.png')}}" />
+
+</head>
+<body>
+<div id="header">
+            <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+
+
+     <img id="logo2" src="{{=URL('static','images/backButton.png')}}") width="120" height="120" onClick='window.location="{{=URL('forum')}}";'>
+
+            <div id="title">
+                <h1>Welcome, to {{=db.auth_user[post.user_id].first_name}} post!</h1>
+            </div>
+
+</div>
+<div class="test">
+  {{picture =db(db.images.id==db.auth_user[post.user_id].id).select().first()}}
+  {{if (picture == None) or (len(picture.profilePic) == 0):}}
+      <img width="100%", height="100%"  src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+  {{else:}}
+              {{if db.auth_user[post.user_id].id in idToMatch:}}
+      <img class="img-circle" width="90px" height="80px"
+           src="{{=URL('download', args=picture.profilePic)}}"
+           onClick='window.location="{{=URL('show',args=[db.auth_user[post.user_id].id,db(db.matchTable.idToMatch == db.auth_user[post.user_id].id).select(db.matchTable.id).first().id])}}";'/>
+         {{else:}}
+        <img class="img-circle" width="90px" height="80px"
+           src="{{=URL('download', args=picture.profilePic)}}">
+        {{pass}}
+
+  {{pass}}
+  </div>
+
+
+
+<div class="post-container">
+<br>
+
+
+    <center>
+    <h2>{{=post.post_subject}}:</h2>
+            <p >{{=post.post_content}}</p>
+
+    </center>
+
+
+
+
+
+
+ {{if db.auth_user[post.user_id].id in idToMatch:}}
+        <span>by: <a href="{{=URL('show',args=[db.auth_user[post.user_id].id,db(db.matchTable.idToMatch == db.auth_user[post.user_id].id).select(db.matchTable.id).first().id])}}">{{=db.auth_user[post.user_id].first_name}}</a></span>
+        {{else:}}
+       <span>by: {{=db.auth_user[post.user_id].first_name}}</span>
+        {{pass}}
+
+      <div class="vote">
+            {{user_vote = db((db.votes.voter == auth.user_id) & (db.votes.forum_post == post.id)).select()}}
+                {{if user_vote:}}
+                    {{if user_vote.first().upvote:}}
+                        <a href="{{=URL('default', 'upvote', args=[post.id])}}"><i class="fa fa-thumbs-o-up" aria-hidden="true" style="color:gold"></i></a>
+                    {{else:}}
+                        <a href="{{=URL('default', 'upvote', args=[post.id])}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                    {{pass}}
+                    <span>{{=post.votes}}</span>
+                    {{if user_vote.first().downvote:}}
+                        <a href="{{=URL('default', 'downvote', args= [post.id])}}"><i class="fa fa-thumbs-o-down" aria-hidden="true" style="color:red"></i></a>
+                    {{else:}}
+                        <a href="{{=URL('default', 'downvote', args= [post.id])}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                    {{pass}}
+                {{else:}}
+                    <a href="{{=URL('default', 'upvote', args=[post.id])}}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+                    <span>{{=post.votes}}</span>
+                    <a href="{{=URL('default', 'downvote', args= [post.id])}}"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+                {{pass}}
+        </div>
+
+    </div>
+
+
+<center>
+
+<h2>Comments:</h2>
+    </center>
+
+
+{{if len(comments):}}
+{{for comm in comments:}}
+    <div class="single-comment">
+
+<div class="test1">
+  {{picture =db(db.images.id==db.auth_user[comm.user_id].id).select().first()}}
+  {{if (picture == None) or (len(picture.profilePic) == 0):}}
+      <img width="100%", height="100%"  src="{{=URL('static', 'images/No_Image_Available.png')}}"/>
+  {{else:}}
+              {{if db.auth_user[comm.user_id].id in idToMatch:}}
+      <img class="img-circle" width="60px" height="50px"
+           src="{{=URL('download', args=picture.profilePic)}}"
+           onClick='window.location="{{=URL('show',args=[db.auth_user[comm.user_id].id,db(db.matchTable.idToMatch == db.auth_user[comm.user_id].id).select(db.matchTable.id).first().id])}}";'/>
+         {{else:}}
+        <img class="img-circle" width="60px" height="50px"
+           src="{{=URL('download', args=picture.profilePic)}}">
+        {{pass}}
+
+  {{pass}}
+      </div>
+
+         {{if db.auth_user[comm.user_id].id in idToMatch:}}
+        <span><a href="{{=URL('show',args=[db.auth_user[comm.user_id].id,db(db.matchTable.idToMatch == db.auth_user[comm.user_id].id).select(db.matchTable.id).first().id])}}">{{=comm.author}}:</a></span>
+        {{else:}}
+       <span>{{=comm.author}}:</span>
+        {{pass}}
+             <span>{{=comm.body}}</span>
+
+
+      </div>
+
+    {{pass}}
+
+{{else:}}
+<h2>No comments posted yet</h2>
+{{pass}}
+<hr>
+<center>
+<h2>Post a comment</h2>
+        <img id="pug_gif" src="/WagMore/static/images/pug_gif.gif" width="200" height="150" alt="Woof!">
+
+        {{=form.custom.begin}}
+{{=form.custom.widget.body}}
+
+<div id="info">
+		<input type="image" alt="Error" src="{{=URL('static', 'images/nextButton.png')}}", height="150px">
+        {{=form.custom.end}}
+</div>
+    </center>
+</body>
+
+</html>

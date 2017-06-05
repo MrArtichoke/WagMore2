@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+    body {
+        background: lightblue;
+    }
+    .header {
+        border: solid green;
+        margin-bottom: 10px;
+        display: flex;
+    }
+
+    .user-panel {
+        display:inline-block;
+        margin-left:auto;
+        align-self: flex-end;
+        border: solid yellow;
+    }
+
+    .posts-container {
+        border: solid purple;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding:0;
+    }
+    
+    .post-single {
+        border: solid black;
+        background: lightsalmon;
+        margin: 20px
+    }
+
+    .post-title {
+        font-size: xx-large;
+    }
+
+</style>
+</head>
+<body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="header">
+    <h1>Forums</h1>
+    <div class="user-panel">
+        <span>Welcome, {{=auth.user.first_name}}.</span> <br>
+        <a href="{{=URL('default', 'edit_post')}}" class="btn btn-warning">
+            <i class="fa fa-plus"></i> New Post
+        </a>
+    </div>
+</div>
+
+<ul class="posts-container">
+{{for post in posts:}}
+    <li class="post-single">
+        <a href="{{=URL('default', 'post_show', args=[post.id])}}" class="post-title">{{=post.post_subject}}:</a><br>
+        <span>by: {{=db.auth_user[post.user_id].first_name}} {{=db.auth_user[post.user_id].last_name}}</span><br>
+        <span>{{=post.created_on}}</span>
+        {{if post.created_on!=post.updated_on:}}
+            <br><span>Last edit: {{=post.updated_on}}</span>
+        {{pass}}
+        {{if post.user_id==auth.user_id:}}
+            <a href="{{=URL('default', 'edit_post', args=[post.id])}}" class="editicon"><i class="fa fa-pencil-square-o"></i></a>
+        {{pass}}
+    </li>
+{{pass}}
+</ul>
+</body>
+</html>

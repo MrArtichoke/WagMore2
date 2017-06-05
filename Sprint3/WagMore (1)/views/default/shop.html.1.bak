@@ -1,0 +1,419 @@
+<style>
+    .header {
+        display: flex;
+        justify-content: center;
+        opacity: 0.95;
+        
+        height:140px;
+        
+       /* background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%);*/ /* FF3.6-15 */
+        background: linear-gradient(to bottom right, #ccccff 0%, #ccffff 100%);
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 20px;
+    }
+     #logo1{
+        position: center;
+       top:-25px;
+    }
+    #buy{
+        position: absolute;
+        margin-top: 120px;
+        right: 150px;
+        width: 180px;
+        height: 180px;
+    }
+
+    .shop-list {
+        display: flex;
+        /*background: lightgreen;*/
+        min-width:300px;
+        position:center;
+        right: 30px;
+    }
+
+    form {
+        margin: auto;
+        width: 100%;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+       flex-flow:row wrap;
+        /*border: dotted blue;*/
+    }
+    #shop-form{
+        margin-right: -300px;
+    }
+
+    form > div {
+        background: linear-gradient(to bottom, #33cccc 0%, #ffffff 100%);
+        width:40%;
+        border-radius: 25px;
+        border: 2px solid black;
+        display: flex;
+        flex-flow: row;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    form >div > div {
+        /*border: dotted green;*/
+        margin: auto;
+    }
+
+    .input {
+        text-align: center;
+    }
+    body{
+        background-image: url("/WagMore/static/images/shopBG2.png");
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+        color: black;
+      
+   
+    }
+    .box {
+  width: 40%;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.2);
+  padding: 35px;
+  border: 2px solid black;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+}
+    .button {
+  font-size: 1em;
+  padding: 10px;
+  color: black;
+  border: 2px solid #06D85F;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+ 
+}
+.button:hover {
+  background: linear-gradient(to bottom, #ccff66 0%, #99ffcc 100%);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+     background: linear-gradient(to right, #ccffff 0%, #ffffff 100%);
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+#return-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+#return-to-top:hover i {
+    color: #fff;
+    top: 5px;
+}
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+</head>
+<body>
+<div class="header">
+    <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+     <center><img id="logo1" src="{{=URL('static', 'images/shopLogo.png')}}" width="200" height="152" alt="Woof!"></center>
+</div>
+    <center><h1>List of Items for sale</h1></center>
+    <div id="shop-form">
+<div class="shop-list">
+        <form>
+            <div class="item-1">
+                <img src="{{=URL('static', 'images/dogbone.png')}}" width="200" height="152" alt="dogBone"/> dog bone
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x5</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x0</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x0</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100"id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+            <div class="item-2">
+                <img src="{{=URL('static', 'images/teddybear')}}" width="200" height="152" alt="teddyBear"/> teddy bear
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x10</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x5</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x3</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" id="test" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="10"id="cost">
+                    <input type="hidden" name="item-name" value="item2">
+                </div>
+            </div>
+             <div class="item-1">
+                <img src="{{=URL('static', 'images/baconBone.png')}}" width="200" height="152" alt="baconBone"/> bacon bone
+                 <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x5</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x1</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x0</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100"id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+             <div class="item-1">
+                <img src="{{=URL('static', 'images/cheeseBone.png')}}" width="200" height="152" alt="cheeseBone"/> cheese bone
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x5</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x1</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x0</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100" id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+            <div class="item-1">
+                <img src="{{=URL('static', 'images/dogHat1.png')}}" width="200" height="152" alt="dogHat2"/> dog hat v1
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x5</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x1</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x1</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100" id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+             <div class="item-1">
+                <img src="{{=URL('static', 'images/dogHat2.png')}}" width="200" height="152" alt="dogHat2"/> dog hat v2
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x5</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x1</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x1</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100" id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+               <div class="item-1">
+                <img src="{{=URL('static', 'images/doghouse.png')}}" width="200" height="152" alt="dogHouse"/> dog house
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x100</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x50</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x30</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100" id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+               <div class="item-1">
+                <img src="{{=URL('static', 'images/duck.png')}}" width="200" height="152" alt="duck"/> rubber duck
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x0</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x6</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x2</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100" id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+              <div class="item-1">
+                <img src="{{=URL('static', 'images/squeakyBall.png')}}" width="200" height="152" alt="squeakyBall"/> squeaky ball
+                <div class="cost-label"> <img src="{{=URL('static', 'images/commonCoin')}}" width="50" height="50" alt="commonCoin"/>x0</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/uncommonCoin')}}" width="50" height="50" alt="uncommonCoin"/>x7</div>
+                <div class="cost-label"> <img src="{{=URL('static', 'images/rareCoin')}}" width="50" height="50" alt="rareCoin"/>x3</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100" id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+            <div class="item-1">
+                <img src="{{=URL('static', 'images/squeakyBall.png')}}" width="200" height="152" alt="squeakyBall"/> squeaky ball
+                <div class="cost-label">$100</div>
+                <div class="control">
+                    <button class="minus" type="button">-</button>
+                    <input type="text" value="0" name="count" class="input" size="1"/>
+                    <button class="plus" type="button">+</button>
+                    <input type="hidden" name="cost" value="100" id="cost">
+                    <input type="hidden" name="item-name" value="item1">
+                </div>
+            </div>
+            <br>
+           <!---<center> <input class="total-cost" name="totalcost" value="0" id="totalcost">
+               <input class="buy-button" type="submit" value="buy"></center>--->
+        </form>
+</div>
+    </div>
+    <div class="box">
+	<a class="button" href="#popup1"> <img id="buy" src="{{=URL('static', 'images/buyButton.png')}}"  alt="Buy" onclick="location.href='{{=URL('default', 'profiles')}}'" style="cursor: pointer"></a>
+</div>
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Thanks for shopping!</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+			You can now view your new items in your inventory.
+            <img src="{{=URL('static', 'images/inventoryLogo.png')}}" width="200" height="152" alt="inventory"/>
+		</div>
+	</div>
+</div>
+    <!-- Return to Top -->
+<a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
+
+
+<!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+</body>
+</html>
+
+<script>
+$(document).ready(function () {
+    var totalCost = 0;
+   $(".plus").click(function () {
+        var $this = $(this);
+        var $input = $this.closest('div').find('.input');
+        var value = parseInt($input.val());
+        if (value < 100) {
+        value = value + 1;
+        } else {
+            value =100;
+        }
+        var cost = $this.closest('div').find('#cost').attr("value");
+        totalCost += parseInt(cost);
+        $("#totalcost").val(totalCost);
+        $input.val(value);
+    });
+   $(".minus").click(function () {
+        var $this = $(this);
+        var $input = $this.closest('div').find('.input');
+        var value = parseInt($input.val());
+        if (value >= 1) {
+            var cost = $this.closest('div').find('#cost').attr("value");
+            totalCost -= parseInt(cost);
+            $("#totalcost").val(totalCost);
+            value = value - 1;
+        } else {
+            value = 0;
+        }
+        $input.val(value);
+    });
+
+   $(".buy-button").click(function () {
+       var $this = $(this);
+   });
+});
+
+</script>
+<script>
+    // ===== Scroll to Top ==== 
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+    }
+});
+$('#return-to-top').click(function() {      // When arrow is clicked
+    $('body,html').animate({
+        scrollTop : 0                       // Scroll to top of body
+    }, 500);
+});
+</script>

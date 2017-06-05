@@ -1,0 +1,139 @@
+<style>
+    .header {
+        display: flex;
+        justify-content: center;
+        height:140px;
+       /* background: -webkit-linear-gradient(left, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 63%, #2ab0ed 100%);*/ /* FF3.6-15 */
+        background: linear-gradient(to bottom right, #ccccff 0%, #ccffff 100%);
+        padding-top: 15px;
+    }
+    #logo{
+        position: absolute;
+        left: 10px;
+        top: 20px;
+    }
+     #logo1{
+        position: center;
+       top:-25px;
+    }
+    body{
+         background-image: url("/WagMore/static/images/shopBG2.png");
+        font-family: "Trebuchet MS", Helvetica, sans-serif;
+        color: black;
+    }
+    #box{
+        width: 50%;
+        height:108%;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 50%,#c1bfea 100%);
+  opacity:.9;
+  padding: 35px;
+  border: 2px solid black;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+    }
+    
+      #myProfile{
+        position: absolute;
+        right: 180px;
+        margin-top: -15px;
+        width: 150px;
+        height: 152px;
+    }
+    /*iphone 6s Plus*/
+@media screen and (min-device-width : 414px) and (max-device-width : 736px) {
+    body{
+        zoom:130% !important;
+    }
+        #box{
+        width: 50%;
+        height:130% !important;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 50%,#c1bfea 100%);
+  opacity:.9;
+  padding: 35px;
+  border: 2px solid black;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+    }
+          #myProfile{
+        position: absolute;
+        right: 50px !important;
+        margin-top: -15px;
+        width: 150px;
+        height: 152px;
+    }
+}
+/* iPad mini landscape*/
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) and (orientation: landscape) {
+            #box{
+        width: 50%;
+        height:130% !important;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 50%,#c1bfea 100%);
+  opacity:.9;
+  padding: 35px;
+  border: 2px solid black;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+    }
+
+}
+        @media only screen
+and (min-device-width : 800px)
+and (max-device-width : 1280px){
+                #box{
+        width: 50%;
+        height:130% !important;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #ebe9f9 0%,#d8d0ef 50%,#c1bfea 100%);
+  opacity:.9;
+  padding: 35px;
+  border: 2px solid black;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+    }
+}
+
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Inventory</title>
+</head>
+<body>
+<div class="header">
+    
+    <img id="logo" src="{{=URL('static', 'images/wagMoreLogo.png')}}" width="200" height="152" alt="Woof!">
+     <center><img id="logo1" src="{{=URL('static', 'images/inventoryLogo.png')}}" width="200" height="152" alt="Woof!"></center>
+    <img id="myProfile" src="{{=URL('static', 'images/buttonMyprofile.png')}}" alt="My profile" onclick="location.href='{{=URL('default', 'show', args=[auth.user.id,-1])}}'" style="cursor: pointer">
+    <a href="{{=URL('default', 'shop')}}" target="_blank"><img id="shop" src="{{=URL('static', 'images/shopLogo.png')}}" width="150" height="100" alt="Woof!" ></a>
+</div>
+    <center><h1>Hi {{=auth.user.first_name}} , this is your inventory</h1>
+        You have: <img src="{{=URL('static', 'images/commonCoin')}}" width="40" height="40" alt="commonCoin"/>x {{=commonCoin}}
+            <img src="{{=URL('static', 'images/uncommonCoin')}}" width="40" height="40" alt="uncommonCoin"/>x {{=uncommonCoin}}
+            <img src="{{=URL('static', 'images/rareCoin')}}" width="40" height="40" alt="rareCoin"/>x {{=rareCoin}}</center>
+    </center>
+    
+    <br><br>
+    <div id="box">
+         <img src="{{=URL('static', 'images/teddybear')}}" width="200" height="152" alt="teddyBear"/> x {{=teddyBear}}
+        <img src="{{=URL('static', 'images/dogbone.png')}}" width="200" height="152" alt="dogBone"/> x {{=dogBone}} <br>
+        <img src="{{=URL('static', 'images/baconBone.png')}}" width="200" height="152" alt="baconBone"/> x {{=dogBoneBacon}}
+        <img src="{{=URL('static', 'images/cheeseBone.png')}}" width="200" height="152" alt="cheeseBone"/> x {{=dogBoneCheese}}<br>
+        <img src="{{=URL('static', 'images/dogHat1.png')}}" width="200" height="152" alt="dogHat2"/> x {{=dogHat}}
+        <img src="{{=URL('static', 'images/dogHat2.png')}}" width="200" height="152" alt="dogHat2"/> x {{=dogHat2}} <br>
+        <img src="{{=URL('static', 'images/doghouse.png')}}" width="200" height="152" alt="dogHouse"/> x {{=dogHouseUltimate}}
+        <img src="{{=URL('static', 'images/duck.png')}}" width="200" height="152" alt="duck"/> x {{=rubberDuck}} <br>
+        <img src="{{=URL('static', 'images/squeakyBall.png')}}" width="200" height="152" alt="squeakyBall"/> x {{=squeakyBall}}
+    </div>
+</body>
+</html>
