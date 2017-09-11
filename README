@@ -3,25 +3,9 @@
 
 === Members: Vincent Della Morte (PO), Katerina Chinnappan, Danny Moon, Gustavo Gomez ===
 
-Wag More is a WEB APPLICATION that I would like to have work on mobile phones as well - that will be the bulk of what we will be doing
-in CMPS 115. It works on mobile; however, it doesn't look very good, so we are going to improve it.
+Wag More is a WEB APPLICATION for people with dogs to network and date!
 
-Some things I want to add:
-
-1. Mobile layout cleanliness
-2. A gift shop and inventory
-3. An option for everyone that uses the app to post on a forum
-4. More emojis
-5. I am open to more suggestions
-
-
-OUR MEETING TIMES: Mondays and Wednesdays from 12:30 - 14:30 @ Jack Baskin 316(possibly Fridays as well), Wednesdays 14.40 with TA @ OAKS
-
-That is all so far. Feel free to email me at vdellamo@ucsc.edu if you need more info.
-
-I will be creating a Slack account soon for our group!
-
-Current working version with Sprint1 & Sprint2 updates: https://wagmore.pythonanywhere.com/WagMore
+Working version 1: https://vincentdellamorte.pythonanywhere.com/WagMore/
 
 Sprint 1 Plan: https://docs.google.com/a/ucsc.edu/document/d/1zre8G3f8v5MC4mAChLQiuraLShj1BWi8MQ9hKuywUHE/edit?usp=sharing
 
